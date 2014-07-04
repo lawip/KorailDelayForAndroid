@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 public class StationSearchActivity extends ActionBarActivity
 {
-	private static final String TYPEFACE_NAME = "kopubDotum.ttf";
+	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
 	private Typeface typeface = null;
 	private ArrayList<String> stationList;
 	private ArrayAdapter<String> stationListAdapter;
@@ -44,8 +44,9 @@ public class StationSearchActivity extends ActionBarActivity
 		// 타이틀 custom :
 		// http://stackoverflow.com/questions/8607707/how-to-set-a-custom-font-in-the-actionbar-title
 		
-		title = getIntent().getStringExtra("title");
 		//인텐트에서 title이라는 이름으로 액션바 이름넘겨받음.
+		title = getIntent().getStringExtra("title");
+		
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));

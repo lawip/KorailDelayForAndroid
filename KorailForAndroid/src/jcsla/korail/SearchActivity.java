@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -44,7 +45,7 @@ import android.widget.Toast;
 
 public class SearchActivity extends ActionBarActivity
 {
-	private static final String TYPEFACE_NAME = "kopubDotum.ttf";
+	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
 	private Typeface typeface = null;
 	private static final int StationSearchActivity = 0;
 	private static final int ArrivalStationSearchActivity = 1;
@@ -86,7 +87,8 @@ public class SearchActivity extends ActionBarActivity
 		arrStationContainer	 = (LinearLayout) findViewById(R.id.arrStaionContainer);
 		searchButton		 = (Button)		  findViewById(R.id.searchButton);
 		
-		trainTypeEdit	 = (TextView) findViewById(R.id.editTrainType);
+		trainTypeEdit		 = (TextView) findViewById(R.id.editTrainType);
+		trainTypeEdit.setTypeface(typeface);
 		depDateEdit		 = (TextView) findViewById(R.id.editDepDate);
 		depTimeEdit		 = (TextView) findViewById(R.id.editDepTime);
 		depStationEdit	 = (TextView) findViewById(R.id.editDepStation);

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class ResultActivity extends Activity
 {
-	private static final String TYPEFACE_NAME = "kopubDotum.ttf";
+	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
 	private Typeface typeface = null;
 	private ListView trainListView;
 
