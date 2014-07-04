@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -27,12 +28,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +42,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class SearchActivity extends SherlockActivity
+public class SearchActivity extends ActionBarActivity
 {
 	private static final String TYPEFACE_NAME = "kopubDotum.ttf";
 	private Typeface typeface = null;
@@ -77,7 +73,7 @@ public class SearchActivity extends SherlockActivity
 		
 		// ≈∏¿Ã∆≤ custom :
 		// http://stackoverflow.com/questions/8607707/how-to-set-a-custom-font-in-the-actionbar-title
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setCustomView(R.layout.actionbar_search);
@@ -112,7 +108,7 @@ public class SearchActivity extends SherlockActivity
 		arrStationContainer.setOnClickListener(layoutClickEye);
 		searchButton.setOnClickListener(layoutClickEye);
 	}
-	
+	/*
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		MenuInflater menuInflater = getSupportMenuInflater();
@@ -120,7 +116,7 @@ public class SearchActivity extends SherlockActivity
 		
 		return true;
 	}
-	
+	*/
 	private OnClickListener layoutClickEye = new OnClickListener()
 	{
 		@Override

@@ -3,16 +3,17 @@ package jcsla.korail;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,13 +21,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class StationSearchActivity extends SherlockActivity
+public class StationSearchActivity extends ActionBarActivity
 {
 	private static final String TYPEFACE_NAME = "kopubDotum.ttf";
 	private Typeface typeface = null;
 	private ArrayList<String> stationList;
 	private ArrayAdapter<String> stationListAdapter;
-	//SearchView mSearchView;
+	SearchView mSearchView;
 	Bundle b;
 	Intent i;
 	
@@ -46,7 +47,7 @@ public class StationSearchActivity extends SherlockActivity
 		title = getIntent().getStringExtra("title");
 		//인텐트에서 title이라는 이름으로 액션바 이름넘겨받음.
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
 		setTitle(title);
 		getActionBar().setDisplayShowHomeEnabled(false);
@@ -87,12 +88,11 @@ public class StationSearchActivity extends SherlockActivity
 		super.setContentView(view);
 	}
 
-	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.menu_search, menu);
 
 		mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 		mSearchView.setQueryHint(title);
@@ -131,7 +131,6 @@ public class StationSearchActivity extends SherlockActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	*/
 	
 	private AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener()
 	{

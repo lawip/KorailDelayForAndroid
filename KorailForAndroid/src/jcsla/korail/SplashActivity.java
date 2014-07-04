@@ -1,13 +1,12 @@
 package jcsla.korail;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-public class SplashActivity extends SherlockActivity {
+public class SplashActivity extends Activity {
 
 	/** Called when the activity is first created. */
 	@Override

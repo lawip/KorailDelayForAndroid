@@ -1,8 +1,7 @@
 package jcsla.korail;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-
+import android.app.ActionBar;
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ResultActivity extends SherlockActivity
+public class ResultActivity extends Activity
 {
 	private static final String TYPEFACE_NAME = "kopubDotum.ttf";
 	private Typeface typeface = null;
@@ -27,7 +26,7 @@ public class ResultActivity extends SherlockActivity
 		loadTypeface();
 		setContentView(R.layout.activity_result);
 
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setCustomView(R.layout.actionbar_result);
