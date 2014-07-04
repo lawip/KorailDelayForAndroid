@@ -55,6 +55,12 @@ public class SearchActivity extends ActionBarActivity
 	private LinearLayout depTimeContainer;
 	private LinearLayout depStationContainer;
 	private LinearLayout arrStationContainer;
+	private TextView trainSearchTitle;
+	private TextView trainTypeTitle;
+	private TextView depDateTitle;
+	private TextView depTimeTitle;
+	private TextView depInfoTitle;
+	private TextView arrInfoTitle;
 	private TextView trainTypeEdit;
 	private TextView depDateEdit;
 	private TextView depTimeEdit;
@@ -80,6 +86,9 @@ public class SearchActivity extends ActionBarActivity
 		actionBar.setCustomView(R.layout.actionbar_search);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
+		trainSearchTitle = (TextView) findViewById(R.id.trainSearchTitle);
+		trainSearchTitle.setTypeface(typeface);
+		
 		trainTypeContainer	 = (LinearLayout) findViewById(R.id.trainTypeContainer);
 		depDateContainer	 = (LinearLayout) findViewById(R.id.depDateContainer);
 		depTimeContainer	 = (LinearLayout) findViewById(R.id.depTimeContainer);
@@ -87,12 +96,29 @@ public class SearchActivity extends ActionBarActivity
 		arrStationContainer	 = (LinearLayout) findViewById(R.id.arrStaionContainer);
 		searchButton		 = (Button)		  findViewById(R.id.searchButton);
 		
+		trainTypeTitle = (TextView) findViewById(R.id.trainTypeTitle);
+		depDateTitle = (TextView) findViewById(R.id.depDateTitle);
+		depTimeTitle = (TextView) findViewById(R.id.depTimeTitle);
+		depInfoTitle = (TextView) findViewById(R.id.depInfoTitle);
+		arrInfoTitle = (TextView) findViewById(R.id.arrInfoTitle);
+		
 		trainTypeEdit		 = (TextView) findViewById(R.id.editTrainType);
-		trainTypeEdit.setTypeface(typeface);
 		depDateEdit		 = (TextView) findViewById(R.id.editDepDate);
 		depTimeEdit		 = (TextView) findViewById(R.id.editDepTime);
 		depStationEdit	 = (TextView) findViewById(R.id.editDepStation);
 		arrStationEdit	 = (TextView) findViewById(R.id.editArrStation);
+		
+		trainTypeTitle.setTypeface(typeface);
+		depDateTitle.setTypeface(typeface);
+		depTimeTitle.setTypeface(typeface);
+		depInfoTitle.setTypeface(typeface);
+		arrInfoTitle.setTypeface(typeface);
+		
+		trainTypeEdit.setTypeface(typeface);
+		depDateEdit.setTypeface(typeface);
+		depTimeEdit.setTypeface(typeface);
+		depStationEdit.setTypeface(typeface);
+		arrStationEdit.setTypeface(typeface);
 		
 		String date = getDate();
 		String time = getTime();
