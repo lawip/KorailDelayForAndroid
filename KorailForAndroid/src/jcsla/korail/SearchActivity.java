@@ -21,7 +21,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,18 +29,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.*;
 
 public class SearchActivity extends ActionBarActivity
 {
@@ -69,8 +68,9 @@ public class SearchActivity extends ActionBarActivity
 	private Button searchButton;
 	
 	private ProgressDialog progressDialog;
+	
+	private AdView adView;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -135,6 +135,11 @@ public class SearchActivity extends ActionBarActivity
 		depStationContainer.setOnClickListener(layoutClickEye);
 		arrStationContainer.setOnClickListener(layoutClickEye);
 		searchButton.setOnClickListener(layoutClickEye);
+		
+		// Look up the AdView as a resource and load a request.
+		adView = (AdView) this.findViewById(R.id.search_adView);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		adView.loadAd(adRequest);
 	}
 	/*
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -285,7 +290,7 @@ public class SearchActivity extends ActionBarActivity
 	{
 		Calendar c = Calendar.getInstance();
 		int chour = c.get(Calendar.HOUR_OF_DAY);
-		//int cminute = c.get(Calendar.MINUTE);
+		int cminute = c.get(Calendar.MINUTE);
 		/*
 		 * 이 부분을 주석처리한 이유는 정확한 분 단위로 검색하지 않고,
 		 * 10시 30분이라면 10시로 검색하여 검색 범위를 좀더 넓히기 위함.
@@ -297,13 +302,13 @@ public class SearchActivity extends ActionBarActivity
 		{
 			if (chour == 0)
 				chour = 12;
-			selectedTime = "오전 " + String.valueOf(chour) + " : 00";
+			selectedTime = "오전 " + String.valueOf(chour) + " : " + String.valueOf(cminute);
 		} else
 		{
 			if (chour == 12)
-				selectedTime = "오후 " + String.valueOf(chour) + " : 00";
+				selectedTime = "오후 " + String.valueOf(chour) + " : " + String.valueOf(cminute);
 			else
-				selectedTime = "오후 " + String.valueOf(chour - 12) + " : 00";
+				selectedTime = "오후 " + String.valueOf(chour - 12) + " : " + String.valueOf(cminute);
 		}
 
 		return selectedTime;
@@ -604,5 +609,31 @@ public class SearchActivity extends ActionBarActivity
 
 			return jsonArray;
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adView != null) {
+			adView.resume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (adView != null) {
+			adView.pause();
+		}
+		super.onPause();
+	}
+
+	/** Called before the activity is destroyed. */
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		if (adView != null) {
+			adView.destroy();
+		}
+		super.onDestroy();
 	}
 }

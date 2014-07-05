@@ -1,5 +1,8 @@
 package jcsla.korail;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Color;
@@ -18,8 +21,9 @@ public class ResultActivity extends Activity
 	public static Typeface typeface = null;
 	private TextView trainResultTitle;
 	private ListView trainListView;
+	
+	private AdView adView;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -48,9 +52,14 @@ public class ResultActivity extends Activity
 		titleStatus.setTypeface(typeface);
 		titleDelayInfo.setTypeface(typeface);
 
-		TrainAdapter trainAdapter = new TrainAdapter(this, R.layout.row, TrainList.trainList);
+		TrainAdapter trainAdapter = new TrainAdapter(this, R.layout.result_row, TrainList.trainList);
 		trainListView = (ListView) findViewById(R.id.trainListView);
 		trainListView.setAdapter(trainAdapter);
+		
+		// Look up the AdView as a resource and load a request.
+		adView = (AdView) this.findViewById(R.id.result_adView);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		adView.loadAd(adRequest);
 	}
 
 	private void loadTypeface()
@@ -74,5 +83,30 @@ public class ResultActivity extends Activity
 			}
 		}
 		super.setContentView(view);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adView != null) {
+			adView.resume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (adView != null) {
+			adView.pause();
+		}
+		super.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		if (adView != null) {
+			adView.destroy();
+		}
+		super.onDestroy();
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -201,7 +202,7 @@
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/search_adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp" 
@@ -209,5 +210,13 @@
         android:gravity="center"
         android:text="@string/titleSearchButton"
         android:textSize="23sp" />
+    
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/search_adView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-5773773713964441/9150436611"
+        ads:adSize="BANNER" />
 
 </RelativeLayout>

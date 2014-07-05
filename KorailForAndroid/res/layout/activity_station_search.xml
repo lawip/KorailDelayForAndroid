@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <EditText
+        android:id="@+id/search_edit_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+    
     <ListView android:id="@+id/station_list"
         	  android:layout_width="match_parent"
-        	  android:layout_height="match_parent"
+        	  android:layout_height="0dp"
+        	  android:layout_weight="10"
+        	  android:persistentDrawingCache="animation|scrolling"
         	  android:choiceMode="singleChoice">
     </ListView>
+    
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/station_search_adView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-5773773713964441/5660416610"
+        ads:adSize="BANNER" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:dividerPadding="@dimen/activity_horizontal_margin"
@@ -59,7 +60,7 @@
     <View android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#C9C9C9"/>
-<!-- 
+    <!--
     <com.praisehim.koraildelay.SwipeLibrary.SwipeRefreshLayout
 
 	    android:id="@+id/refresher"
@@ -67,13 +68,23 @@
 	    android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10" >
--->
-        <ListView
-		    android:id="@+id/trainListView"
-		    android:layout_width="match_parent"
-       		android:layout_height="0dp"
-        	android:layout_weight="10"
-	        android:persistentDrawingCache="animation|scrolling" />
+    -->
+
+    <ListView
+        android:id="@+id/trainListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:persistentDrawingCache="animation|scrolling" />
+    
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/result_adView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-5773773713964441/4881687412"
+        ads:adSize="BANNER" />
+
 <!-- 
 	android:layoutAnimation="@anim/anim_layout_controller"
 	</com.praisehim.koraildelay.SwipeLibrary.SwipeRefreshLayout>

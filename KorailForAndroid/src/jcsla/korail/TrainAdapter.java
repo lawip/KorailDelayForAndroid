@@ -26,8 +26,9 @@ public class TrainAdapter extends ArrayAdapter<Train>
 		if (v == null)
 		{
 			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.row, null);
+			v = vi.inflate(R.layout.result_row, null);
 		}
+		
 		Train t = TrainList.trainList.get(position);
 		
 		if (t != null)
