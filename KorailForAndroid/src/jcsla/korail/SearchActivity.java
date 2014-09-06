@@ -515,11 +515,7 @@ public class SearchActivity extends ActionBarActivity
 
 		public JSONParser(String train, String date, String time, String dep, String arr)
 		{
-<<<<<<< HEAD
-			url = "http://115.71.236.224:8082/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
-=======
 			url = "http://221.166.154.113:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
->>>>>>> a915424c7bc50562fccc34baea7b4a9ae426591b
 					+ dep + "&arr=" + arr;
 			progressDialog = ProgressDialog.show(SearchActivity.this, "", "잠시 기다려주세요...", true);
 		}
@@ -589,14 +585,7 @@ public class SearchActivity extends ActionBarActivity
 			try
 			{
 				DefaultHttpClient httpClient = new DefaultHttpClient();
-<<<<<<< HEAD
 				HttpGet httpPost = new HttpGet(url);
-=======
-				HttpGet httpPost = new HttpGet
-						
-						
-						(url);
->>>>>>> a915424c7bc50562fccc34baea7b4a9ae426591b
 				HttpResponse httpResponse;
 				httpResponse = httpClient.execute(httpPost);
 				HttpEntity httpEntity = httpResponse.getEntity();
