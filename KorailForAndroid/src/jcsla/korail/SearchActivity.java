@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -420,8 +421,8 @@ public class SearchActivity extends ActionBarActivity
 		String train = getTrain(sTrain);
 		String date = getDate(sDate);
 		String time = getTime(sTime);
-		String departureStation = getStation(sDepartureStation);
-		String arrivalStation = getStation(sArrivalStation);
+		String departureStation = sDepartureStation;
+		String arrivalStation = sArrivalStation;
 
 		new JSONParser(train, date, time, departureStation, arrivalStation).execute();
 	}
@@ -514,7 +515,7 @@ public class SearchActivity extends ActionBarActivity
 
 		public JSONParser(String train, String date, String time, String dep, String arr)
 		{
-			url = "http://14.63.219.205:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
+			url = "http://221.166.154.113:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
 					+ dep + "&arr=" + arr;
 			progressDialog = ProgressDialog.show(SearchActivity.this, "", "잠시 기다려주세요...", true);
 		}
@@ -584,7 +585,10 @@ public class SearchActivity extends ActionBarActivity
 			try
 			{
 				DefaultHttpClient httpClient = new DefaultHttpClient();
-				HttpPost httpPost = new HttpPost(url);
+				HttpGet httpPost = new HttpGet
+						
+						
+						(url);
 				HttpResponse httpResponse;
 				httpResponse = httpClient.execute(httpPost);
 				HttpEntity httpEntity = httpResponse.getEntity();
