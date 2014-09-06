@@ -45,15 +45,20 @@ public class StationsAdapter extends ArrayAdapter<String>
 		return v;
 	}
 	
+	// SoundSearcher.matchString("검색할대상","검색어");
+	// ex)
+	// SoundSearcher.matchString("안녕하세요","ㅇㄴ하"); //true
+	// SoundSearcher.matchString("반갑습니다","ㅂㄱ습ㄴ"); //true
+	// SoundSearcher.matchString("안녕히가세요","ㅇㄴㅎㅎ"); //false
 	public void filter(String charText)
 	{
 		stationList.clear();
 		if (charText.length() == 0) {
 			stationList.addAll(temp);
-		} 
+		}
 		else {
 			for (String str : temp) {
-				if (str.contains(charText)) 
+				if(SoundSearcher.matchString(str, charText))
 					stationList.add(str);
 			}
 		}
