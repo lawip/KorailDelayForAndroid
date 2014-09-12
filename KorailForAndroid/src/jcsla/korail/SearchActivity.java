@@ -18,8 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -43,7 +45,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.*;
 
-public class SearchActivity extends ActionBarActivity
+public class SearchActivity extends Fragment
 {
 	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
 	private Typeface typeface = null;
@@ -71,43 +73,47 @@ public class SearchActivity extends ActionBarActivity
 	private ProgressDialog progressDialog;
 	
 	private AdView adView;
+	
+	private View v;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		loadTypeface();
-		setContentView(R.layout.activity_search);
+		//setContentView(R.layout.activity_search);
 		
 		// 타이틀 custom :
 		// http://stackoverflow.com/questions/8607707/how-to-set-a-custom-font-in-the-actionbar-title
-		ActionBar actionBar = getActionBar();
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionBar.setCustomView(R.layout.actionbar_search);
-		getActionBar().setDisplayShowHomeEnabled(false);
+		//ActionBar actionBar = getActionBar();
+		//actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
+		//actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		//actionBar.setCustomView(R.layout.actionbar_search);
+		//getActionBar().setDisplayShowHomeEnabled(false);
 		
-		trainSearchTitle = (TextView) findViewById(R.id.trainSearchTitle);
+		v = inflater.inflate(R.layout.activity_search, container, false);
+		
+		trainSearchTitle = (TextView) v.findViewById(R.id.trainSearchTitle);
 		trainSearchTitle.setTypeface(typeface);
 		
-		trainTypeContainer	 = (LinearLayout) findViewById(R.id.trainTypeContainer);
-		depDateContainer	 = (LinearLayout) findViewById(R.id.depDateContainer);
-		depTimeContainer	 = (LinearLayout) findViewById(R.id.depTimeContainer);
-		depStationContainer	 = (LinearLayout) findViewById(R.id.depStationContainer);
-		arrStationContainer	 = (LinearLayout) findViewById(R.id.arrStaionContainer);
-		searchButton		 = (Button)		  findViewById(R.id.searchButton);
+		trainTypeContainer	 = (LinearLayout) v.findViewById(R.id.trainTypeContainer);
+		depDateContainer	 = (LinearLayout) v.findViewById(R.id.depDateContainer);
+		depTimeContainer	 = (LinearLayout) v.findViewById(R.id.depTimeContainer);
+		depStationContainer	 = (LinearLayout) v.findViewById(R.id.depStationContainer);
+		arrStationContainer	 = (LinearLayout) v.findViewById(R.id.arrStaionContainer);
+		searchButton		 = (Button)		  v.findViewById(R.id.searchButton);
 		
-		trainTypeTitle = (TextView) findViewById(R.id.trainTypeTitle);
-		depDateTitle = (TextView) findViewById(R.id.depDateTitle);
-		depTimeTitle = (TextView) findViewById(R.id.depTimeTitle);
-		depInfoTitle = (TextView) findViewById(R.id.depInfoTitle);
-		arrInfoTitle = (TextView) findViewById(R.id.arrInfoTitle);
+		trainTypeTitle = (TextView) v.findViewById(R.id.trainTypeTitle);
+		depDateTitle = (TextView) v.findViewById(R.id.depDateTitle);
+		depTimeTitle = (TextView) v.findViewById(R.id.depTimeTitle);
+		depInfoTitle = (TextView) v.findViewById(R.id.depInfoTitle);
+		arrInfoTitle = (TextView) v.findViewById(R.id.arrInfoTitle);
 		
-		trainTypeEdit		 = (TextView) findViewById(R.id.editTrainType);
-		depDateEdit		 = (TextView) findViewById(R.id.editDepDate);
-		depTimeEdit		 = (TextView) findViewById(R.id.editDepTime);
-		depStationEdit	 = (TextView) findViewById(R.id.editDepStation);
-		arrStationEdit	 = (TextView) findViewById(R.id.editArrStation);
+		trainTypeEdit		 = (TextView) v.findViewById(R.id.editTrainType);
+		depDateEdit		 = (TextView) v.findViewById(R.id.editDepDate);
+		depTimeEdit		 = (TextView) v.findViewById(R.id.editDepTime);
+		depStationEdit	 = (TextView) v.findViewById(R.id.editDepStation);
+		arrStationEdit	 = (TextView) v.findViewById(R.id.editArrStation);
 		
 		trainTypeTitle.setTypeface(typeface);
 		depDateTitle.setTypeface(typeface);
@@ -138,9 +144,11 @@ public class SearchActivity extends ActionBarActivity
 		searchButton.setOnClickListener(layoutClickEye);
 		
 		// Look up the AdView as a resource and load a request.
-		adView = (AdView) this.findViewById(R.id.search_adView);
+		adView = (AdView) this.v.findViewById(R.id.search_adView);
 		AdRequest adRequest = new AdRequest.Builder().build();
 		adView.loadAd(adRequest);
+		
+		return v;
 	}
 	/*
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -175,13 +183,13 @@ public class SearchActivity extends ActionBarActivity
 				break;
 				
 			case R.id.depStationContainer:
-				Intent depIntent = new Intent(getApplicationContext(), StationSearchActivity.class);
+				Intent depIntent = new Intent(getActivity().getApplicationContext(), StationSearchActivity.class);
 				depIntent.putExtra("title", "출발역검색");
 				startActivityForResult(depIntent, StationSearchActivity);
 				break;
 				
 			case R.id.arrStaionContainer:
-				Intent arrIntent = new Intent(getApplicationContext(), StationSearchActivity.class);
+				Intent arrIntent = new Intent(getActivity().getApplicationContext(), StationSearchActivity.class);
 				arrIntent.putExtra("title", "도착역검색");
 				startActivityForResult(arrIntent, ArrivalStationSearchActivity);
 				break;
@@ -192,9 +200,9 @@ public class SearchActivity extends ActionBarActivity
 	private void loadTypeface()
 	{
 		if (typeface == null)
-			typeface = Typeface.createFromAsset(getAssets(), TYPEFACE_NAME);
+			typeface = Typeface.createFromAsset(getActivity().getAssets(), TYPEFACE_NAME);
 	}
-
+/*
 	@Override
 	public void setContentView(int viewId)
 	{
@@ -211,7 +219,7 @@ public class SearchActivity extends ActionBarActivity
 		}
 		super.setContentView(view);
 	}
-	
+*/
 	public String getDate()
 	{
 		Calendar c = Calendar.getInstance();
@@ -319,7 +327,7 @@ public class SearchActivity extends ActionBarActivity
 	{
 		final CharSequence[] trains = { "전체", "KTX", "새마을호", "무궁화호", "통근열차", "누리로", "공항철도", "ITX-새마을", "ITX-청춘" };
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
 		builder.setTitle("열차 선택");
 		builder.setItems(trains, new DialogInterface.OnClickListener()
 		{
@@ -348,7 +356,7 @@ public class SearchActivity extends ActionBarActivity
 				depDateEdit.setText(selectedDate);
 			}
 		};
-		DatePickerDialog alert = new DatePickerDialog(this, mDateSetListener, cyear, cmonth, cday);
+		DatePickerDialog alert = new DatePickerDialog(getActivity().getApplicationContext(), mDateSetListener, cyear, cmonth, cday);
 		alert.setTitle("날짜 선택");
 		alert.show();
 	}
@@ -382,7 +390,7 @@ public class SearchActivity extends ActionBarActivity
 				depTimeEdit.setText(selectedTime);
 			}
 		};
-		TimePickerDialog alert = new TimePickerDialog(this, mTimeSetListener, chour, cminute, false);
+		TimePickerDialog alert = new TimePickerDialog(getActivity().getApplicationContext(), mTimeSetListener, chour, cminute, false);
 		alert.setTitle("시간 선택");
 		alert.show();
 	}
@@ -392,14 +400,14 @@ public class SearchActivity extends ActionBarActivity
 		switch (requestCode)
 		{
 		case StationSearchActivity:
-			if (resultCode == RESULT_OK)
+			if (resultCode == Activity.RESULT_OK)
 			{
 				String station = i.getExtras().getString("station");
 				depStationEdit.setText(station);
 			}
 			break;
 		case ArrivalStationSearchActivity:
-			if (resultCode == RESULT_OK)
+			if (resultCode == Activity.RESULT_OK)
 			{
 				String station = i.getExtras().getString("station");
 				arrStationEdit.setText(station);
@@ -517,7 +525,7 @@ public class SearchActivity extends ActionBarActivity
 		{
 			url = "http://221.166.154.113:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
 					+ dep + "&arr=" + arr;
-			progressDialog = ProgressDialog.show(SearchActivity.this, "", "잠시 기다려주세요...", true);
+			progressDialog = ProgressDialog.show(getActivity().getApplicationContext(), "", "잠시 기다려주세요...", true);
 		}
 
 		@Override
@@ -567,11 +575,11 @@ public class SearchActivity extends ActionBarActivity
 
 			if (isNull == true)
 			{
-				Toast.makeText(getApplicationContext(), "조회 결과가 없습니다.", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity().getApplicationContext(), "조회 결과가 없습니다.", Toast.LENGTH_LONG).show();
 				return;
 			}
 
-			Intent i = new Intent(getApplicationContext(), ResultActivity.class);
+			Intent i = new Intent(getActivity().getApplicationContext(), ResultActivity.class);
 			startActivity(i);
 		}
 	}
