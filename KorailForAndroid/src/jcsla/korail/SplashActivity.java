@@ -16,7 +16,7 @@ public class SplashActivity extends Activity {
 	    
 	    Handler h = new Handler() {
 	    	public void handleMessage(Message msg) {
-	    		startActivity(new Intent(SplashActivity.this, SearchActivity.class));
+	    		startActivity(new Intent(SplashActivity.this, MainActivity.class));
 	    		finish();
 	    	}
 	    };

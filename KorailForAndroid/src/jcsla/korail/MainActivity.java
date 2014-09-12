@@ -13,7 +13,7 @@ public class MainActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
-		actionBar.addTab(actionBar.newTab().setText("new tab").setTabListener(new TabListener<SearchActivity>(this, "tab"), SearchActivity.class));
+		actionBar.addTab(actionBar.newTab().setText("new tab").setTabListener(new TabListener<SearchActivity>(this, "tab", SearchActivity.class)));
 	}
 
 	@Override
