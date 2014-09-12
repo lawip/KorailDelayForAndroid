@@ -16,5 +16,11 @@
     <string name="titleStatus">열차위치</string>
     <string name="titleDelayInfo">지연</string>
     
+    <string name="title_section1">Search</string>
+    <string name="title_section2">History</string>
+    <string name="title_section3">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
 
 </resources>

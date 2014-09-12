@@ -11,27 +11,22 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +40,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.*;
 
-public class SearchActivity extends Fragment
+public class SearchFragment extends Fragment
 {
 	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
 	private Typeface typeface = null;
@@ -57,7 +52,7 @@ public class SearchActivity extends Fragment
 	private LinearLayout depTimeContainer;
 	private LinearLayout depStationContainer;
 	private LinearLayout arrStationContainer;
-	private TextView trainSearchTitle;
+	
 	private TextView trainTypeTitle;
 	private TextView depDateTitle;
 	private TextView depTimeTitle;
@@ -68,6 +63,7 @@ public class SearchActivity extends Fragment
 	private TextView depTimeEdit;
 	private TextView depStationEdit;
 	private TextView arrStationEdit;
+	
 	private Button searchButton;
 	
 	private ProgressDialog progressDialog;
@@ -75,26 +71,20 @@ public class SearchActivity extends Fragment
 	private AdView adView;
 	
 	private View v;
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		loadTypeface();
-		//setContentView(R.layout.activity_search);
 		
-		// 타이틀 custom :
-		// http://stackoverflow.com/questions/8607707/how-to-set-a-custom-font-in-the-actionbar-title
-		//ActionBar actionBar = getActionBar();
-		//actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
-		//actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		//actionBar.setCustomView(R.layout.actionbar_search);
-		//getActionBar().setDisplayShowHomeEnabled(false);
-		
-		v = inflater.inflate(R.layout.activity_search, container, false);
-		
-		trainSearchTitle = (TextView) v.findViewById(R.id.trainSearchTitle);
-		trainSearchTitle.setTypeface(typeface);
+		v = inflater.inflate(R.layout.fragment_search, container, false);
 		
 		trainTypeContainer	 = (LinearLayout) v.findViewById(R.id.trainTypeContainer);
 		depDateContainer	 = (LinearLayout) v.findViewById(R.id.depDateContainer);
@@ -126,6 +116,7 @@ public class SearchActivity extends Fragment
 		depTimeEdit.setTypeface(typeface);
 		depStationEdit.setTypeface(typeface);
 		arrStationEdit.setTypeface(typeface);
+		searchButton.setTypeface(typeface);
 		
 		String date = getDate();
 		String time = getTime();
@@ -150,15 +141,7 @@ public class SearchActivity extends Fragment
 		
 		return v;
 	}
-	/*
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		MenuInflater menuInflater = getSupportMenuInflater();
-		menuInflater.inflate(R.menu.menu_search, menu);
-		
-		return true;
-	}
-	*/
+
 	private OnClickListener layoutClickEye = new OnClickListener()
 	{
 		@Override
@@ -327,7 +310,7 @@ public class SearchActivity extends Fragment
 	{
 		final CharSequence[] trains = { "전체", "KTX", "새마을호", "무궁화호", "통근열차", "누리로", "공항철도", "ITX-새마을", "ITX-청춘" };
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle("열차 선택");
 		builder.setItems(trains, new DialogInterface.OnClickListener()
 		{
@@ -356,7 +339,7 @@ public class SearchActivity extends Fragment
 				depDateEdit.setText(selectedDate);
 			}
 		};
-		DatePickerDialog alert = new DatePickerDialog(getActivity().getApplicationContext(), mDateSetListener, cyear, cmonth, cday);
+		DatePickerDialog alert = new DatePickerDialog(getActivity(), mDateSetListener, cyear, cmonth, cday);
 		alert.setTitle("날짜 선택");
 		alert.show();
 	}
@@ -390,7 +373,7 @@ public class SearchActivity extends Fragment
 				depTimeEdit.setText(selectedTime);
 			}
 		};
-		TimePickerDialog alert = new TimePickerDialog(getActivity().getApplicationContext(), mTimeSetListener, chour, cminute, false);
+		TimePickerDialog alert = new TimePickerDialog(getActivity(), mTimeSetListener, chour, cminute, false);
 		alert.setTitle("시간 선택");
 		alert.show();
 	}
@@ -525,7 +508,7 @@ public class SearchActivity extends Fragment
 		{
 			url = "http://221.166.154.113:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
 					+ dep + "&arr=" + arr;
-			progressDialog = ProgressDialog.show(getActivity().getApplicationContext(), "", "잠시 기다려주세요...", true);
+			progressDialog = ProgressDialog.show(getActivity(), "", "잠시 기다려주세요...", true);
 		}
 
 		@Override

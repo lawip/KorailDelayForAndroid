@@ -15,6 +15,12 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabTextStyle</item>
+    </style>
+    
+    <style name="MyActionBarTabTextStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/tab_text_color</item>
+        <item name="android:textSize">16sp</item>
     </style>
     
     <style name="NoTitle" parent="AppBaseTheme">
