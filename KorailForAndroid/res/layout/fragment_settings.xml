@@ -1,8 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <!-- 즐겨찾는구간 등록 -->
+    <LinearLayout
+        android:id="@+id/enrollFavoriteStationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/layout_item_click"
+        android:layout_margin="5dp" >
 
-</LinearLayout>
+		<TextView
+		    android:id="@+id/enrollFavoriteStationTitle"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:textSize="21sp"
+			android:layout_margin="3dp"
+			android:text="@string/titleEnrollFavoriteStationButton" />
+
+    </LinearLayout>
+    
+    <!-- 개발자에게 메일 보내기 -->
+    <LinearLayout
+        android:id="@+id/sendEmailContainer"
+        android:layout_below="@+id/enrollFavoriteStationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/layout_item_click"
+        android:layout_margin="5dp" >
+
+		<TextView
+		    android:id="@+id/sendEmailTitle"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:textSize="21sp"
+			android:layout_margin="3dp"
+			android:text="@string/titleSendEmailButton" />
+
+    </LinearLayout>
+    
+    <!-- 별점 / 리뷰 남기기 -->
+    <LinearLayout
+        android:id="@+id/writeReviewContainer"
+        android:layout_below="@+id/sendEmailContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/layout_item_click"
+        android:layout_margin="5dp" >
+
+		<TextView
+		    android:id="@+id/writeReviewTitle"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:textSize="21sp"
+			android:layout_margin="3dp"
+			android:text="@string/titleWriteReviewButton" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/appInformationContainer"
+        android:layout_below="@+id/writeReviewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:focusable="true"
+        android:background="@drawable/layout_item_click"
+        android:layout_margin="5dp" >
+
+		<TextView
+		    android:id="@+id/appInformationTitle"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:textSize="21sp"
+			android:layout_margin="3dp"
+			android:text="@string/titleAppInformation" />
+
+    </LinearLayout>
+    
+</RelativeLayout>

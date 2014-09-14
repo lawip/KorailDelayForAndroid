@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
@@ -47,6 +48,8 @@ public class SearchFragment extends Fragment
 	private static final int StationSearchActivity = 0;
 	private static final int ArrivalStationSearchActivity = 1;
 	
+	private View v;
+	
 	private LinearLayout trainTypeContainer;
 	private LinearLayout depDateContainer;
 	private LinearLayout depTimeContainer;
@@ -63,14 +66,13 @@ public class SearchFragment extends Fragment
 	private TextView depTimeEdit;
 	private TextView depStationEdit;
 	private TextView arrStationEdit;
+	private TextView favoriteStationSearch;
 	
 	private Button searchButton;
 	
 	private ProgressDialog progressDialog;
 	
 	private AdView adView;
-	
-	private View v;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
@@ -98,6 +100,7 @@ public class SearchFragment extends Fragment
 		depTimeTitle = (TextView) v.findViewById(R.id.depTimeTitle);
 		depInfoTitle = (TextView) v.findViewById(R.id.depInfoTitle);
 		arrInfoTitle = (TextView) v.findViewById(R.id.arrInfoTitle);
+		favoriteStationSearch = (TextView) v.findViewById(R.id.FavoriteStationSearchTitle);
 		
 		trainTypeEdit		 = (TextView) v.findViewById(R.id.editTrainType);
 		depDateEdit		 = (TextView) v.findViewById(R.id.editDepDate);
@@ -110,6 +113,7 @@ public class SearchFragment extends Fragment
 		depTimeTitle.setTypeface(typeface);
 		depInfoTitle.setTypeface(typeface);
 		arrInfoTitle.setTypeface(typeface);
+		favoriteStationSearch.setTypeface(typeface);
 		
 		trainTypeEdit.setTypeface(typeface);
 		depDateEdit.setTypeface(typeface);
@@ -133,6 +137,7 @@ public class SearchFragment extends Fragment
 		depStationContainer.setOnClickListener(layoutClickEye);
 		arrStationContainer.setOnClickListener(layoutClickEye);
 		searchButton.setOnClickListener(layoutClickEye);
+		favoriteStationSearch.setOnClickListener(layoutClickEye);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.v.findViewById(R.id.search_adView);
@@ -149,6 +154,10 @@ public class SearchFragment extends Fragment
 		{
 			switch (v.getId())
 			{
+			case R.id.favoriteStaionContainer:
+				showFavoriteStationDialog();
+				break;
+				
 			case R.id.searchButton:
 				queryTrain();
 				break;
@@ -185,7 +194,8 @@ public class SearchFragment extends Fragment
 		if (typeface == null)
 			typeface = Typeface.createFromAsset(getActivity().getAssets(), TYPEFACE_NAME);
 	}
-/*
+
+	/*
 	@Override
 	public void setContentView(int viewId)
 	{
@@ -377,6 +387,12 @@ public class SearchFragment extends Fragment
 		alert.setTitle("시간 선택");
 		alert.show();
 	}
+	
+	// 즐겨찾는구간 검색 다이얼로그 띄우기
+	protected void showFavoriteStationDialog() {
+		// TODO Auto-generated method stub
+
+	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent i)
 	{
@@ -506,8 +522,14 @@ public class SearchFragment extends Fragment
 
 		public JSONParser(String train, String date, String time, String dep, String arr)
 		{
+			String incodedDep = null;
+			String incodedArr = null;
+			
+			incodedDep = java.net.URLEncoder.encode(dep);
+			incodedArr = java.net.URLEncoder.encode(arr);
+			
 			url = "http://221.166.154.113:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
-					+ dep + "&arr=" + arr;
+					+ incodedDep + "&arr=" + incodedArr;
 			progressDialog = ProgressDialog.show(getActivity(), "", "잠시 기다려주세요...", true);
 		}
 

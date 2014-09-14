@@ -199,6 +199,37 @@
 		    android:textSize="21sp"
 		    android:layout_margin="3dp"  />
     </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/favoriteStaionContainer"
+        android:layout_below="@+id/arrStaionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/layout_item_click"
+        android:layout_margin="5dp" >
+
+		<ImageView
+		    android:layout_width="30dp"
+		    android:layout_height="30dp"
+		    android:layout_gravity="center_vertical"
+		    android:layout_margin="3dp"
+		    android:src="@drawable/icon_favorite"
+		    android:scaleType="fitXY" />
+
+		<TextView
+		    android:id="@+id/FavoriteStationSearchTitle"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:textSize="21sp"
+			android:layout_margin="3dp"
+			android:text="@string/titleFavoriteStationSearch" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/searchButton"
@@ -206,7 +237,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp" 
-        android:background="@drawable/search_button_click"
+        android:background="@drawable/button_resource"
         android:gravity="center"
         android:text="@string/titleSearchButton"
         android:textSize="23sp" />

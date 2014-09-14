@@ -3,11 +3,16 @@
 
 	<string name="app_name">코레일 지연정보</string>
     
+	<string name="title_section1">Search</string>
+    <string name="title_section2">History</string>
+    <string name="title_section3">Settings</string>
+    
     <string name="titleTrainType">열차종류</string>
     <string name="titleDepDate">출발날짜</string>
     <string name="titleDepTime">출발시간</string>
     <string name="titleDepInfo">출발역</string>
     <string name="titleArrInfo">도착역</string>
+    <string name="titleFavoriteStationSearch">즐겨찾는구간 검색</string>
     <string name="titleSearchButton">조회</string>
     
     <string name="titleNowInfo">열차</string>
@@ -16,11 +21,11 @@
     <string name="titleStatus">열차위치</string>
     <string name="titleDelayInfo">지연</string>
     
-    <string name="title_section1">Search</string>
-    <string name="title_section2">History</string>
-    <string name="title_section3">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="titleRefreshButton">새로고침</string>
     
-
+    <string name="titleEnrollFavoriteStationButton">즐겨찾는구간 등록</string>
+    <string name="titleSendEmailButton">개발자에게 메일 보내기</string>
+    <string name="titleWriteReviewButton">별점 / 리뷰 남기기</string>
+    <string name="titleAppInformation">어플리케이션 정보</string>
+    
 </resources>

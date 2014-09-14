@@ -7,6 +7,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import android.app.ActionBar;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;

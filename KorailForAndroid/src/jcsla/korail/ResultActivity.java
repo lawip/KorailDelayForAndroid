@@ -5,17 +5,22 @@ import com.google.android.gms.ads.AdView;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ResultActivity extends Activity
+public class ResultActivity extends Activity implements OnItemClickListener
 {
 	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
 	public static Typeface typeface = null;
@@ -55,6 +60,7 @@ public class ResultActivity extends Activity
 		TrainAdapter trainAdapter = new TrainAdapter(this, R.layout.result_row, TrainList.trainList);
 		trainListView = (ListView) findViewById(R.id.trainListView);
 		trainListView.setAdapter(trainAdapter);
+		trainListView.setOnItemClickListener(this);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.findViewById(R.id.result_adView);
@@ -108,5 +114,32 @@ public class ResultActivity extends Activity
 			adView.destroy();
 		}
 		super.onDestroy();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Train t = TrainList.trainList.get(position);
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(t.getTrainType() + " " + t.getTrainNumber() + "번 열차를 등록하시겠습니까?").setCancelable(false)
+		.setPositiveButton("확인",
+				new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        // 'YES'
+				    	// 파일에 저장
+				    }
+				})
+		.setNegativeButton("취소",
+				new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        // 'No'
+				    	return;
+				    }
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }

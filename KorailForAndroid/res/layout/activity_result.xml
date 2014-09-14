@@ -60,15 +60,6 @@
     <View android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#C9C9C9"/>
-    <!--
-    <com.praisehim.koraildelay.SwipeLibrary.SwipeRefreshLayout
-
-	    android:id="@+id/refresher"
-	    android:background="@drawable/refresh"
-	    android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10" >
-    -->
 
     <ListView
         android:id="@+id/trainListView"
@@ -84,10 +75,5 @@
         android:layout_height="wrap_content"
         ads:adUnitId="ca-app-pub-5773773713964441/4881687412"
         ads:adSize="BANNER" />
-
-<!-- 
-	android:layoutAnimation="@anim/anim_layout_controller"
-	</com.praisehim.koraildelay.SwipeLibrary.SwipeRefreshLayout>
- -->
-    
+ 
 </LinearLayout>
