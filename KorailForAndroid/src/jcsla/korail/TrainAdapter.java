@@ -1,6 +1,7 @@
 package jcsla.korail;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,14 +58,14 @@ public class TrainAdapter extends ArrayAdapter<Train>
 			location.setText(t.getTrainStatus());
 			delay.setText(delayString);
 			
-			trainType.setTypeface(ResultActivity.typeface);
-			trainNumber.setTypeface(ResultActivity.typeface);
-			departureStation.setTypeface(ResultActivity.typeface);
-			departureTime.setTypeface(ResultActivity.typeface);
-			arrivalStation.setTypeface(ResultActivity.typeface);
-			arrivalTime.setTypeface(ResultActivity.typeface);
-			location.setTypeface(ResultActivity.typeface);
-			delay.setTypeface(ResultActivity.typeface);
+			trainType.setTypeface(TypefaceHelper.typeface);
+			trainNumber.setTypeface(TypefaceHelper.typeface);
+			departureStation.setTypeface(TypefaceHelper.typeface);
+			departureTime.setTypeface(TypefaceHelper.typeface);
+			arrivalStation.setTypeface(TypefaceHelper.typeface);
+			arrivalTime.setTypeface(TypefaceHelper.typeface);
+			location.setTypeface(TypefaceHelper.typeface);
+			delay.setTypeface(TypefaceHelper.typeface);
 		}
 		return v;
 	}

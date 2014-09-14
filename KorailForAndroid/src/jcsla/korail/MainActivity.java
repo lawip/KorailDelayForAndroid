@@ -35,9 +35,6 @@ public class MainActivity extends ActionBarActivity implements
 	ViewPager mViewPager;
 	
 	private TextView appTitle;
-	
-	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
-	private Typeface typeface = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements
 		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#31333c")));
 		
 		appTitle = (TextView) findViewById(R.id.trainSearchTitle);
-		appTitle.setTypeface(typeface);
+		appTitle.setTypeface(TypefaceHelper.typeface);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
@@ -127,8 +124,8 @@ public class MainActivity extends ActionBarActivity implements
 	
 	private void loadTypeface()
 	{
-		if (typeface == null)
-			typeface = Typeface.createFromAsset(getAssets(), TYPEFACE_NAME);
+		if (TypefaceHelper.typeface == null)
+			TypefaceHelper.typeface = Typeface.createFromAsset(getAssets(), TypefaceHelper.TYPEFACE_NAME);
 	}
 
 	/**

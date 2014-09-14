@@ -33,7 +33,7 @@ public class SettingsFragment extends Fragment
 		writeReviewTitle = (TextView) v.findViewById(R.id.writeReviewTitle);
 		appInformationTitle = (TextView) v.findViewById(R.id.appInformationTitle);
 		
-		enrollFavoriteStationTitle.setTypeface(typeface);
+		enrollFavoriteStationTitle.setTypeface(TypefaceHelper.typeface);
 		sendEmailTitle.setTypeface(typeface);
 		writeReviewTitle.setTypeface(typeface);
 		appInformationTitle.setTypeface(typeface);

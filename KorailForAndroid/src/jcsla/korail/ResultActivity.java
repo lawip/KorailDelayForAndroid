@@ -22,8 +22,6 @@ import android.widget.TextView;
 
 public class ResultActivity extends Activity implements OnItemClickListener
 {
-	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
-	public static Typeface typeface = null;
 	private TextView trainResultTitle;
 	private ListView trainListView;
 	
@@ -33,7 +31,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		loadTypeface();
+
 		setContentView(R.layout.activity_result);
 
 		ActionBar actionBar = getActionBar();
@@ -43,7 +41,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
 		trainResultTitle = (TextView) findViewById(R.id.trainResultTitle);
-		trainResultTitle.setTypeface(typeface);
+		trainResultTitle.setTypeface(TypefaceHelper.typeface);
 		
 		TextView titleTrainType = (TextView) findViewById(R.id.titleTrainType);
 		TextView titleDepInfo = (TextView) findViewById(R.id.titleDepInfo);
@@ -51,11 +49,11 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		TextView titleStatus = (TextView) findViewById(R.id.titleStatus);
 		TextView titleDelayInfo = (TextView) findViewById(R.id.titleDelayInfo);
 		
-		titleTrainType.setTypeface(typeface);
-		titleDepInfo.setTypeface(typeface);
-		titleArrInfo.setTypeface(typeface);
-		titleStatus.setTypeface(typeface);
-		titleDelayInfo.setTypeface(typeface);
+		titleTrainType.setTypeface(TypefaceHelper.typeface);
+		titleDepInfo.setTypeface(TypefaceHelper.typeface);
+		titleArrInfo.setTypeface(TypefaceHelper.typeface);
+		titleStatus.setTypeface(TypefaceHelper.typeface);
+		titleDelayInfo.setTypeface(TypefaceHelper.typeface);
 
 		TrainAdapter trainAdapter = new TrainAdapter(this, R.layout.result_row, TrainList.trainList);
 		trainListView = (ListView) findViewById(R.id.trainListView);
@@ -66,12 +64,6 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		adView = (AdView) this.findViewById(R.id.result_adView);
 		AdRequest adRequest = new AdRequest.Builder().build();
 		adView.loadAd(adRequest);
-	}
-
-	private void loadTypeface()
-	{
-		if (typeface == null)
-			typeface = Typeface.createFromAsset(getAssets(), TYPEFACE_NAME);
 	}
 
 	@Override
@@ -85,7 +77,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 			View v = group.getChildAt(i);
 			if (v instanceof TextView)
 			{
-				((TextView) v).setTypeface(typeface);
+				((TextView) v).setTypeface(TypefaceHelper.typeface);
 			}
 		}
 		super.setContentView(view);
