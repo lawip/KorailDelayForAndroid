@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
@@ -43,8 +42,6 @@ import com.google.android.gms.ads.*;
 
 public class SearchFragment extends Fragment
 {
-	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
-	private Typeface typeface = null;
 	private static final int StationSearchActivity = 0;
 	private static final int ArrivalStationSearchActivity = 1;
 	
@@ -84,7 +81,6 @@ public class SearchFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		loadTypeface();
 		
 		v = inflater.inflate(R.layout.fragment_search, container, false);
 		
@@ -108,19 +104,19 @@ public class SearchFragment extends Fragment
 		depStationEdit	 = (TextView) v.findViewById(R.id.editDepStation);
 		arrStationEdit	 = (TextView) v.findViewById(R.id.editArrStation);
 		
-		trainTypeTitle.setTypeface(typeface);
-		depDateTitle.setTypeface(typeface);
-		depTimeTitle.setTypeface(typeface);
-		depInfoTitle.setTypeface(typeface);
-		arrInfoTitle.setTypeface(typeface);
-		favoriteStationSearch.setTypeface(typeface);
+		trainTypeTitle.setTypeface(TypefaceHelper.typeface);
+		depDateTitle.setTypeface(TypefaceHelper.typeface);
+		depTimeTitle.setTypeface(TypefaceHelper.typeface);
+		depInfoTitle.setTypeface(TypefaceHelper.typeface);
+		arrInfoTitle.setTypeface(TypefaceHelper.typeface);
+		favoriteStationSearch.setTypeface(TypefaceHelper.typeface);
 		
-		trainTypeEdit.setTypeface(typeface);
-		depDateEdit.setTypeface(typeface);
-		depTimeEdit.setTypeface(typeface);
-		depStationEdit.setTypeface(typeface);
-		arrStationEdit.setTypeface(typeface);
-		searchButton.setTypeface(typeface);
+		trainTypeEdit.setTypeface(TypefaceHelper.typeface);
+		depDateEdit.setTypeface(TypefaceHelper.typeface);
+		depTimeEdit.setTypeface(TypefaceHelper.typeface);
+		depStationEdit.setTypeface(TypefaceHelper.typeface);
+		arrStationEdit.setTypeface(TypefaceHelper.typeface);
+		searchButton.setTypeface(TypefaceHelper.typeface);
 		
 		String date = getDate();
 		String time = getTime();
@@ -188,12 +184,6 @@ public class SearchFragment extends Fragment
 			}
 		}
 	};
-	
-	private void loadTypeface()
-	{
-		if (typeface == null)
-			typeface = Typeface.createFromAsset(getActivity().getAssets(), TYPEFACE_NAME);
-	}
 
 	/*
 	@Override
@@ -598,9 +588,9 @@ public class SearchFragment extends Fragment
 			try
 			{
 				DefaultHttpClient httpClient = new DefaultHttpClient();
-				HttpGet httpPost = new HttpGet(url);
+				HttpGet httpGet = new HttpGet(url);
 				HttpResponse httpResponse;
-				httpResponse = httpClient.execute(httpPost);
+				httpResponse = httpClient.execute(httpGet);
 				HttpEntity httpEntity = httpResponse.getEntity();
 				InputStream inputStream = httpEntity.getContent();
 				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

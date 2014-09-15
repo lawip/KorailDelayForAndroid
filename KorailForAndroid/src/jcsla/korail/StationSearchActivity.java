@@ -7,7 +7,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import android.app.ActionBar;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -26,8 +25,6 @@ import android.widget.TextView;
 
 public class StationSearchActivity extends ActionBarActivity
 {
-	private static final String TYPEFACE_NAME = "BM-HANNA.ttf";
-	public static Typeface typeface = null;
 	private ArrayList<String> stationList;
 	StationsAdapter stationListAdapter;
 	Bundle b;
@@ -44,7 +41,6 @@ public class StationSearchActivity extends ActionBarActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		loadTypeface();
 		setContentView(R.layout.activity_station_search);
 		
 		// ≈∏¿Ã∆≤ custom :
@@ -61,7 +57,7 @@ public class StationSearchActivity extends ActionBarActivity
 		
 		TextView stationSearchTitle = (TextView) findViewById(R.id.stationSearchTitle);
 		stationSearchTitle.setText(title);
-		stationSearchTitle.setTypeface(typeface);
+		stationSearchTitle.setTypeface(TypefaceHelper.typeface);
 		
 		searchEditText = (EditText) findViewById(R.id.search_edit_text);
 		searchEditText.setHint(title);
@@ -110,12 +106,6 @@ public class StationSearchActivity extends ActionBarActivity
 		adView.loadAd(adRequest);
 	}
 
-	private void loadTypeface()
-	{
-		if (typeface == null)
-			typeface = Typeface.createFromAsset(getAssets(), TYPEFACE_NAME);
-	}
-
 	@Override
 	public void setContentView(int viewId)
 	{
@@ -127,7 +117,7 @@ public class StationSearchActivity extends ActionBarActivity
 			View v = group.getChildAt(i);
 			if (v instanceof TextView)
 			{
-				((TextView) v).setTypeface(typeface);
+				((TextView) v).setTypeface(TypefaceHelper.typeface);
 			}
 		}
 		super.setContentView(view);

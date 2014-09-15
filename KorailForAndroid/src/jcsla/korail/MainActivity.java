@@ -1,5 +1,7 @@
 package jcsla.korail;
 
+import com.urqa.clientinterface.URQAController;
+
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -14,7 +16,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements
@@ -39,6 +40,9 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		URQAController.InitializeAndStartSession(getApplicationContext(), "7ADED139");
+		
 		setContentView(R.layout.activity_main);
 		loadTypeface();
 

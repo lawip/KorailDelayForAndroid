@@ -11,11 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
         android:clickable="true"
+        android:padding="10dp"
         android:focusable="true"
-        android:background="@drawable/layout_item_click"
-        android:layout_margin="5dp" >
+        android:background="@drawable/layout_item_click" >
 
 		<TextView
 		    android:id="@+id/enrollFavoriteStationTitle"
@@ -35,11 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
         android:clickable="true"
+        android:padding="10dp"
         android:focusable="true"
-        android:background="@drawable/layout_item_click"
-        android:layout_margin="5dp" >
+        android:background="@drawable/layout_item_click" >
 
 		<TextView
 		    android:id="@+id/sendEmailTitle"
@@ -59,11 +57,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
         android:clickable="true"
+        android:padding="10dp"
         android:focusable="true"
-        android:background="@drawable/layout_item_click"
-        android:layout_margin="5dp" >
+        android:background="@drawable/layout_item_click" >
 
 		<TextView
 		    android:id="@+id/writeReviewTitle"
@@ -82,10 +79,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:padding="10dp"
         android:focusable="true"
-        android:background="@drawable/layout_item_click"
-        android:layout_margin="5dp" >
+        android:background="@drawable/layout_item_click" >
 
 		<TextView
 		    android:id="@+id/appInformationTitle"

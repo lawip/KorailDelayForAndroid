@@ -39,7 +39,7 @@ public class StationsAdapter extends ArrayAdapter<String>
 		{
 			TextView stationTextView = (TextView) v.findViewById(R.id.stationItem);
 			stationTextView.setText(station.toString());
-			stationTextView.setTypeface(StationSearchActivity.typeface);
+			stationTextView.setTypeface(TypefaceHelper.typeface);
 		}
 		
 		return v;
