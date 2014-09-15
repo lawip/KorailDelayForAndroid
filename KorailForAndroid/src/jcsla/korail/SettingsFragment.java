@@ -76,8 +76,8 @@ public class SettingsFragment extends Fragment
 	};
 	
 	protected void showEnrollFavoriteStationActivity() {
-		// TODO Auto-generated method stub
-		
+		Intent i = new Intent(getActivity().getApplicationContext(), FavoriteStationActivity.class);
+		startActivity(i);
 	}
 	
 	protected void showSendEmailActivity() {

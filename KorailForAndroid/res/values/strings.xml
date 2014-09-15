@@ -28,4 +28,6 @@
     <string name="titleWriteReviewButton">별점 / 리뷰 남기기</string>
     <string name="titleAppInformation">어플리케이션 정보</string>
     
+    <string name="titleEnroll">등록</string>
+    
 </resources>
