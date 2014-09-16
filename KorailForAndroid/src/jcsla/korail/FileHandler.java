@@ -40,6 +40,22 @@ public class FileHandler
 		return file;
 	}
 	
+	public static boolean deleteFile(File file)
+	{
+		boolean result;
+		
+		if (file != null && file.exists())
+		{
+			file.delete();
+			result = true;
+		}
+		else {
+			result = false;
+		}
+		
+		return result;
+	}
+	
 	public static boolean writeFile(File file , byte[] file_content)
 	{
 		FileOutputStream fos;

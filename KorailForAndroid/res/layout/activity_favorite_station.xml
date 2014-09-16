@@ -24,5 +24,13 @@
         android:gravity="center"
         android:text="@string/titleEnroll"
         android:textSize="23sp" />
+    
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/favorite_adView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-5773773713964441/8211755812"
+        ads:adSize="BANNER" />
 
 </LinearLayout>

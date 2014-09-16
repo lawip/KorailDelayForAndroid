@@ -1,5 +1,8 @@
 package jcsla.korail;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +26,10 @@ public class SettingsFragment extends Fragment
 	private TextView sendEmailTitle;
 	private TextView writeReviewTitle;
 	private TextView appInformationTitle;
+	private TextView version;
+	private TextView description;
+	
+	private AdView adView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -39,19 +46,34 @@ public class SettingsFragment extends Fragment
 		sendEmailTitle = (TextView) v.findViewById(R.id.sendEmailTitle);
 		writeReviewTitle = (TextView) v.findViewById(R.id.writeReviewTitle);
 		appInformationTitle = (TextView) v.findViewById(R.id.appInformationTitle);
+		version = (TextView) v.findViewById(R.id.version);
+		description = (TextView) v.findViewById(R.id.appDescription);
 		
 		enrollFavoriteStationTitle.setTypeface(Variable.typeface);
 		sendEmailTitle.setTypeface(Variable.typeface);
 		writeReviewTitle.setTypeface(Variable.typeface);
 		appInformationTitle.setTypeface(Variable.typeface);
+		version.setTypeface(Variable.typeface);
+		description.setTypeface(Variable.typeface);
+		setDescripionText();
 		
 		enrollFavoriteStationContainer.setOnClickListener(layoutClickEye);
 		sendEmailContainer.setOnClickListener(layoutClickEye);
 		writeReviewContainer.setOnClickListener(layoutClickEye);
 		
+		// Look up the AdView as a resource and load a request.
+		adView = (AdView) this.v.findViewById(R.id.settings_adView);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		adView.loadAd(adRequest);
+		
 		return v;
 	}
 	
+	private void setDescripionText() {
+		description.setText("코레일 지연정보를 이용해주셔서 감사합니다. \n"
+				+ "버그나 기타 문의사항은 상단의 메일, 리뷰를 활용해주세요.");
+	}
+
 	private OnClickListener layoutClickEye = new OnClickListener()
 	{
 		@Override

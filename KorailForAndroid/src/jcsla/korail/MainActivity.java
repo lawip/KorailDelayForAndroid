@@ -39,7 +39,8 @@ public class MainActivity extends ActionBarActivity implements
 	private TextView appTitle;
 	
 	File dir;
-	File file;
+	File favoriteStationsFile;
+	File historyFile;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +106,14 @@ public class MainActivity extends ActionBarActivity implements
 */	
 		
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
-		String filePath = Variable.DIRECTORY_NAME+Variable.FAVORITE_STATIONS_FILE;
-		file = FileHandler.makeFile(dir, filePath);
+		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;
+		favoriteStationsFile = FileHandler.makeFile(dir, favoriteStationsFilePath);
 		
-		Variable.favoriteStationsList = FileHandler.readFile(file);
+		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
+		historyFile = FileHandler.makeFile(dir, historyFilePath);
+		
+		Variable.favoriteStationsList = FileHandler.readFile(favoriteStationsFile);
+		Variable.historyList = FileHandler.readFile(historyFile);
 	}
 
 	@Override

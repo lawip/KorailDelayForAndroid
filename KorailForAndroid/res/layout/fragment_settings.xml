@@ -91,7 +91,44 @@
 		    android:textSize="21sp"
 			android:layout_margin="3dp"
 			android:text="@string/titleAppInformation" />
-
+		<TextView
+		    android:id="@+id/version"
+		    android:text="ver 3.0"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="right"
+		    android:layout_gravity="right|center_vertical"
+		    android:textSize="21sp"
+		    android:layout_margin="3dp" />
+		
     </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/appDescriptionContainer"
+        android:layout_below="@+id/appInformationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:focusable="true"
+        android:background="@drawable/layout_item_click" >
+
+		<TextView
+		    android:id="@+id/appDescription"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:textSize="15sp"
+			android:layout_margin="3dp" />
+		
+	</LinearLayout>
+	
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/settings_adView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-5773773713964441/6735022618"
+        ads:adSize="BANNER" />
     
 </RelativeLayout>

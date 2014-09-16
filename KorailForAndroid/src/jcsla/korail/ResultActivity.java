@@ -1,5 +1,7 @@
 package jcsla.korail;
 
+import java.io.File;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -24,6 +26,9 @@ public class ResultActivity extends Activity implements OnItemClickListener
 	private ListView trainListView;
 	
 	private AdView adView;
+	
+	File dir;
+	File file;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -117,8 +122,10 @@ public class ResultActivity extends Activity implements OnItemClickListener
 				new DialogInterface.OnClickListener() {
 				    @Override
 				    public void onClick(DialogInterface dialog, int which) {
-				        // 'YES'
-				    	// 파일에 저장
+						// 'YES'
+						// 파일에 저장
+				    	
+				    	// alert 띄워주기
 				    }
 				})
 		.setNegativeButton("취소",

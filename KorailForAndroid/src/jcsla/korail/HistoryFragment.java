@@ -1,5 +1,8 @@
 package jcsla.korail;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ public class HistoryFragment extends Fragment
 	private TextView depInfoHistoryTitle;
 	private TextView arrInfoHistoryTitle;
 	private Button refreshButton;
+	
+	private AdView adView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -41,6 +46,11 @@ public class HistoryFragment extends Fragment
 		refreshButton.setTypeface(Variable.typeface);
 		
 		// 파일 로드 함수 호출.
+		
+		// Look up the AdView as a resource and load a request.
+		adView = (AdView) this.v.findViewById(R.id.history_adView);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		adView.loadAd(adRequest);
 		
 		return v;
 	}

@@ -394,7 +394,15 @@ public class SearchFragment extends Fragment
 			public void onClick(DialogInterface dialog, int item)
 			{
 				// 클릭 시 출발역 - 도착역 바꾸기
-				//trainTypeEdit.setText(Variable.favoriteStationsList.get(item));
+				String selectedItem = Variable.favoriteStationsList.get(item);
+				
+				StringTokenizer st = new StringTokenizer(selectedItem, "-");
+
+				String departureStation = st.nextToken().trim();
+				String arrivalStation = st.nextToken().trim();
+				
+				depStationEdit.setText(departureStation);
+				arrStationEdit.setText(arrivalStation);
 			}
 		});
 		AlertDialog alert = builder.create();
@@ -535,7 +543,7 @@ public class SearchFragment extends Fragment
 			incodedDep = java.net.URLEncoder.encode(dep);
 			incodedArr = java.net.URLEncoder.encode(arr);
 			
-			url = "http://221.166.154.113:8000/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
+			url = "http://115.71.236.224:8082/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
 					+ incodedDep + "&arr=" + incodedArr;
 			progressDialog = ProgressDialog.show(getActivity(), "", "잠시 기다려주세요...", true);
 		}

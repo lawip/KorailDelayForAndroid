@@ -12,6 +12,8 @@ public class Variable
 	
 	public static String DIRECTORY_NAME = Environment.getExternalStorageDirectory() + "/KORAIL_DELAY/";
 	public static String FAVORITE_STATIONS_FILE = "favorite_stations.txt";
+	public static String HISTORY_FILE = "history.txt";
 	
 	public static ArrayList<String> favoriteStationsList;
+	public static ArrayList<String> historyList;
 }
