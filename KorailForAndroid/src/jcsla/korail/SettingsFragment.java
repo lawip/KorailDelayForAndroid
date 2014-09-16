@@ -1,7 +1,6 @@
 package jcsla.korail;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,10 +40,10 @@ public class SettingsFragment extends Fragment
 		writeReviewTitle = (TextView) v.findViewById(R.id.writeReviewTitle);
 		appInformationTitle = (TextView) v.findViewById(R.id.appInformationTitle);
 		
-		enrollFavoriteStationTitle.setTypeface(TypefaceHelper.typeface);
-		sendEmailTitle.setTypeface(TypefaceHelper.typeface);
-		writeReviewTitle.setTypeface(TypefaceHelper.typeface);
-		appInformationTitle.setTypeface(TypefaceHelper.typeface);
+		enrollFavoriteStationTitle.setTypeface(Variable.typeface);
+		sendEmailTitle.setTypeface(Variable.typeface);
+		writeReviewTitle.setTypeface(Variable.typeface);
+		appInformationTitle.setTypeface(Variable.typeface);
 		
 		enrollFavoriteStationContainer.setOnClickListener(layoutClickEye);
 		sendEmailContainer.setOnClickListener(layoutClickEye);

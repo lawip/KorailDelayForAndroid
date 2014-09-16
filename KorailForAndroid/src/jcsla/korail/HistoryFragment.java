@@ -33,12 +33,12 @@ public class HistoryFragment extends Fragment
 		arrInfoHistoryTitle = (TextView) v.findViewById(R.id.titleHistoryDelayInfo);
 		refreshButton = (Button) v.findViewById(R.id.refreshButton);
 		
-		trainTypeHistoryTitle.setTypeface(TypefaceHelper.typeface);
-		depDateHistoryTitle.setTypeface(TypefaceHelper.typeface);
-		depTimeHistoryTitle.setTypeface(TypefaceHelper.typeface);
-		depInfoHistoryTitle.setTypeface(TypefaceHelper.typeface);
-		arrInfoHistoryTitle.setTypeface(TypefaceHelper.typeface);
-		refreshButton.setTypeface(TypefaceHelper.typeface);
+		trainTypeHistoryTitle.setTypeface(Variable.typeface);
+		depDateHistoryTitle.setTypeface(Variable.typeface);
+		depTimeHistoryTitle.setTypeface(Variable.typeface);
+		depInfoHistoryTitle.setTypeface(Variable.typeface);
+		arrInfoHistoryTitle.setTypeface(Variable.typeface);
+		refreshButton.setTypeface(Variable.typeface);
 		
 		// 파일 로드 함수 호출.
 		

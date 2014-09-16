@@ -58,14 +58,14 @@ public class TrainAdapter extends ArrayAdapter<Train>
 			location.setText(t.getTrainStatus());
 			delay.setText(delayString);
 			
-			trainType.setTypeface(TypefaceHelper.typeface);
-			trainNumber.setTypeface(TypefaceHelper.typeface);
-			departureStation.setTypeface(TypefaceHelper.typeface);
-			departureTime.setTypeface(TypefaceHelper.typeface);
-			arrivalStation.setTypeface(TypefaceHelper.typeface);
-			arrivalTime.setTypeface(TypefaceHelper.typeface);
-			location.setTypeface(TypefaceHelper.typeface);
-			delay.setTypeface(TypefaceHelper.typeface);
+			trainType.setTypeface(Variable.typeface);
+			trainNumber.setTypeface(Variable.typeface);
+			departureStation.setTypeface(Variable.typeface);
+			departureTime.setTypeface(Variable.typeface);
+			arrivalStation.setTypeface(Variable.typeface);
+			arrivalTime.setTypeface(Variable.typeface);
+			location.setTypeface(Variable.typeface);
+			delay.setTypeface(Variable.typeface);
 		}
 		return v;
 	}

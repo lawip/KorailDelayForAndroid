@@ -23,7 +23,6 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -52,6 +51,7 @@ public class SearchFragment extends Fragment
 	private LinearLayout depTimeContainer;
 	private LinearLayout depStationContainer;
 	private LinearLayout arrStationContainer;
+	private LinearLayout favoriteStationsContainer;
 	
 	private TextView trainTypeTitle;
 	private TextView depDateTitle;
@@ -89,6 +89,7 @@ public class SearchFragment extends Fragment
 		depTimeContainer	 = (LinearLayout) v.findViewById(R.id.depTimeContainer);
 		depStationContainer	 = (LinearLayout) v.findViewById(R.id.depStationContainer);
 		arrStationContainer	 = (LinearLayout) v.findViewById(R.id.arrStaionContainer);
+		favoriteStationsContainer	 = (LinearLayout) v.findViewById(R.id.favoriteStationsContainer);
 		searchButton		 = (Button)		  v.findViewById(R.id.searchButton);
 		
 		trainTypeTitle = (TextView) v.findViewById(R.id.trainTypeTitle);
@@ -104,19 +105,19 @@ public class SearchFragment extends Fragment
 		depStationEdit	 = (TextView) v.findViewById(R.id.editDepStation);
 		arrStationEdit	 = (TextView) v.findViewById(R.id.editArrStation);
 		
-		trainTypeTitle.setTypeface(TypefaceHelper.typeface);
-		depDateTitle.setTypeface(TypefaceHelper.typeface);
-		depTimeTitle.setTypeface(TypefaceHelper.typeface);
-		depInfoTitle.setTypeface(TypefaceHelper.typeface);
-		arrInfoTitle.setTypeface(TypefaceHelper.typeface);
-		favoriteStationSearch.setTypeface(TypefaceHelper.typeface);
+		trainTypeTitle.setTypeface(Variable.typeface);
+		depDateTitle.setTypeface(Variable.typeface);
+		depTimeTitle.setTypeface(Variable.typeface);
+		depInfoTitle.setTypeface(Variable.typeface);
+		arrInfoTitle.setTypeface(Variable.typeface);
+		favoriteStationSearch.setTypeface(Variable.typeface);
 		
-		trainTypeEdit.setTypeface(TypefaceHelper.typeface);
-		depDateEdit.setTypeface(TypefaceHelper.typeface);
-		depTimeEdit.setTypeface(TypefaceHelper.typeface);
-		depStationEdit.setTypeface(TypefaceHelper.typeface);
-		arrStationEdit.setTypeface(TypefaceHelper.typeface);
-		searchButton.setTypeface(TypefaceHelper.typeface);
+		trainTypeEdit.setTypeface(Variable.typeface);
+		depDateEdit.setTypeface(Variable.typeface);
+		depTimeEdit.setTypeface(Variable.typeface);
+		depStationEdit.setTypeface(Variable.typeface);
+		arrStationEdit.setTypeface(Variable.typeface);
+		searchButton.setTypeface(Variable.typeface);
 		
 		String date = getDate();
 		String time = getTime();
@@ -132,8 +133,8 @@ public class SearchFragment extends Fragment
 		depTimeContainer.setOnClickListener(layoutClickEye);
 		depStationContainer.setOnClickListener(layoutClickEye);
 		arrStationContainer.setOnClickListener(layoutClickEye);
+		favoriteStationsContainer.setOnClickListener(layoutClickEye);
 		searchButton.setOnClickListener(layoutClickEye);
-		favoriteStationSearch.setOnClickListener(layoutClickEye);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.v.findViewById(R.id.search_adView);
@@ -150,7 +151,7 @@ public class SearchFragment extends Fragment
 		{
 			switch (v.getId())
 			{
-			case R.id.favoriteStaionContainer:
+			case R.id.favoriteStationsContainer:
 				showFavoriteStationDialog();
 				break;
 				
@@ -380,8 +381,24 @@ public class SearchFragment extends Fragment
 	
 	// 즐겨찾는구간 검색 다이얼로그 띄우기
 	protected void showFavoriteStationDialog() {
-		// TODO Auto-generated method stub
+		int length = Variable.favoriteStationsList.size();
+		CharSequence[] favoriteStations = new CharSequence[length];
+		
+		for(int i=0 ; i<length ; i++)
+			favoriteStations[i] = Variable.favoriteStationsList.get(i);
 
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle("즐겨찾는구간 선택");
+		builder.setItems(favoriteStations, new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int item)
+			{
+				// 클릭 시 출발역 - 도착역 바꾸기
+				//trainTypeEdit.setText(Variable.favoriteStationsList.get(item));
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent i)

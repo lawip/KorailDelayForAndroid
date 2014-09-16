@@ -9,7 +9,6 @@ import com.google.android.gms.ads.AdView;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -57,7 +56,7 @@ public class StationSearchActivity extends ActionBarActivity
 		
 		TextView stationSearchTitle = (TextView) findViewById(R.id.stationSearchTitle);
 		stationSearchTitle.setText(title);
-		stationSearchTitle.setTypeface(TypefaceHelper.typeface);
+		stationSearchTitle.setTypeface(Variable.typeface);
 		
 		searchEditText = (EditText) findViewById(R.id.search_edit_text);
 		searchEditText.setHint(title);
@@ -117,7 +116,7 @@ public class StationSearchActivity extends ActionBarActivity
 			View v = group.getChildAt(i);
 			if (v instanceof TextView)
 			{
-				((TextView) v).setTypeface(TypefaceHelper.typeface);
+				((TextView) v).setTypeface(Variable.typeface);
 			}
 		}
 		super.setContentView(view);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class StationsAdapter extends ArrayAdapter<String>
 {
 	Context context;
+	
 	ArrayList<String> stationList;
 	ArrayList<String> temp;
 
@@ -39,7 +40,7 @@ public class StationsAdapter extends ArrayAdapter<String>
 		{
 			TextView stationTextView = (TextView) v.findViewById(R.id.stationItem);
 			stationTextView.setText(station.toString());
-			stationTextView.setTypeface(TypefaceHelper.typeface);
+			stationTextView.setTypeface(Variable.typeface);
 		}
 		
 		return v;

@@ -39,7 +39,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
 		trainResultTitle = (TextView) findViewById(R.id.trainResultTitle);
-		trainResultTitle.setTypeface(TypefaceHelper.typeface);
+		trainResultTitle.setTypeface(Variable.typeface);
 		
 		TextView titleTrainType = (TextView) findViewById(R.id.titleTrainType);
 		TextView titleDepInfo = (TextView) findViewById(R.id.titleDepInfo);
@@ -47,11 +47,11 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		TextView titleStatus = (TextView) findViewById(R.id.titleStatus);
 		TextView titleDelayInfo = (TextView) findViewById(R.id.titleDelayInfo);
 		
-		titleTrainType.setTypeface(TypefaceHelper.typeface);
-		titleDepInfo.setTypeface(TypefaceHelper.typeface);
-		titleArrInfo.setTypeface(TypefaceHelper.typeface);
-		titleStatus.setTypeface(TypefaceHelper.typeface);
-		titleDelayInfo.setTypeface(TypefaceHelper.typeface);
+		titleTrainType.setTypeface(Variable.typeface);
+		titleDepInfo.setTypeface(Variable.typeface);
+		titleArrInfo.setTypeface(Variable.typeface);
+		titleStatus.setTypeface(Variable.typeface);
+		titleDelayInfo.setTypeface(Variable.typeface);
 
 		TrainAdapter trainAdapter = new TrainAdapter(this, R.layout.result_row, TrainList.trainList);
 		trainListView = (ListView) findViewById(R.id.trainListView);
@@ -75,7 +75,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 			View v = group.getChildAt(i);
 			if (v instanceof TextView)
 			{
-				((TextView) v).setTypeface(TypefaceHelper.typeface);
+				((TextView) v).setTypeface(Variable.typeface);
 			}
 		}
 		super.setContentView(view);

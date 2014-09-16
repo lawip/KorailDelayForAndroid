@@ -2,6 +2,7 @@ package jcsla.korail;
 
 import com.urqa.clientinterface.URQAController;
 
+import java.io.File;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -36,6 +37,9 @@ public class MainActivity extends ActionBarActivity implements
 	ViewPager mViewPager;
 	
 	private TextView appTitle;
+	
+	File dir;
+	File file;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements
 		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#31333c")));
 		
 		appTitle = (TextView) findViewById(R.id.trainSearchTitle);
-		appTitle.setTypeface(TypefaceHelper.typeface);
+		appTitle.setTypeface(Variable.typeface);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
@@ -99,6 +103,12 @@ public class MainActivity extends ActionBarActivity implements
 					.setTabListener(this));
 		}
 */	
+		
+		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
+		String filePath = Variable.DIRECTORY_NAME+Variable.FAVORITE_STATIONS_FILE;
+		file = FileHandler.makeFile(dir, filePath);
+		
+		Variable.favoriteStationsList = FileHandler.readFile(file);
 	}
 
 	@Override
@@ -128,8 +138,8 @@ public class MainActivity extends ActionBarActivity implements
 	
 	private void loadTypeface()
 	{
-		if (TypefaceHelper.typeface == null)
-			TypefaceHelper.typeface = Typeface.createFromAsset(getAssets(), TypefaceHelper.TYPEFACE_NAME);
+		if (Variable.typeface == null)
+			Variable.typeface = Typeface.createFromAsset(getAssets(), Variable.TYPEFACE_NAME);
 	}
 
 	/**
