@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class HistoryFragment extends Fragment
@@ -45,7 +46,10 @@ public class HistoryFragment extends Fragment
 		arrInfoHistoryTitle.setTypeface(Variable.typeface);
 		refreshButton.setTypeface(Variable.typeface);
 		
-		// 파일 로드 함수 호출.
+		// adpater
+		HistoryAdapter historyAdapter = new HistoryAdapter(this.getActivity(), R.layout.result_row, Variable.historyList);
+		ListView historyListView = (ListView) v.findViewById(R.id.trainHistoryListView);
+		historyListView.setAdapter(historyAdapter);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.v.findViewById(R.id.history_adView);

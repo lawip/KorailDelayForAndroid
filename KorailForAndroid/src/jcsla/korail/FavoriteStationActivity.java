@@ -149,7 +149,7 @@ public class FavoriteStationActivity extends ActionBarActivity implements OnItem
 				    	for(int i=0 ; i<Variable.favoriteStationsList.size() ; i++) {
 				    		if(clickedItem.compareTo(Variable.favoriteStationsList.get(i)) == 0) {
 				    			Variable.favoriteStationsList.remove(i);
-				    			removeFavoriteStationsFile();
+				    			remakeFavoriteStationsFile();
 				    			favoriteStationsAdapter.notifyDataSetChanged();
 				    		}
 				    	}
@@ -168,7 +168,7 @@ public class FavoriteStationActivity extends ActionBarActivity implements OnItem
 		alert.show();
 	}
 	
-	public void removeFavoriteStationsFile()
+	public void remakeFavoriteStationsFile()
 	{
 		FileHandler.deleteFile(favoriteStationsFile);
 		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;

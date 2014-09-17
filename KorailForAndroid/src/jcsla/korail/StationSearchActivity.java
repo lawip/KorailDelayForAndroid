@@ -33,7 +33,6 @@ public class StationSearchActivity extends ActionBarActivity
 	EditText searchEditText;
 	
 	private AdView adView;
-	private static final String AD_UNIT_ID = "ca-app-pub-5773773713964441/5660416610";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -65,20 +64,17 @@ public class StationSearchActivity extends ActionBarActivity
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
 				stationListAdapter.filter(s.toString());
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 				
 			}
 			

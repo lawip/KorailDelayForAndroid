@@ -3,7 +3,10 @@ package jcsla.korail;
 import com.urqa.clientinterface.URQAController;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.ActionBar;
@@ -16,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -113,7 +117,69 @@ public class MainActivity extends ActionBarActivity implements
 		historyFile = FileHandler.makeFile(dir, historyFilePath);
 		
 		Variable.favoriteStationsList = FileHandler.readFile(favoriteStationsFile);
-		Variable.historyList = FileHandler.readFile(historyFile);
+		Variable.tempHistoryList = FileHandler.readFile(historyFile);
+		deleteNotTodayHistory(); // 오늘 날짜 아니면 삭제
+		
+		insertHistoryList();
+		getMoreTrainInformation();
+	}
+
+	private void deleteNotTodayHistory()
+	{
+		SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+    	Date date = new Date();
+    	String currentDate = SimpleDateFormat.format(date);
+    	
+    	for(int i=0 ; i<Variable.tempHistoryList.size() ; i++)
+    	{
+    		String line = Variable.tempHistoryList.get(i);
+    		StringTokenizer st = new StringTokenizer(line, "-");
+			String historyDate = st.nextToken().trim();
+			
+    		if(historyDate.compareTo(currentDate) != 0) {
+    			Variable.tempHistoryList.remove(i);
+    			remakeHistoryFile();
+    		}
+    	}
+	}
+
+	private void remakeHistoryFile() {
+		FileHandler.deleteFile(historyFile);
+		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
+		historyFile = FileHandler.makeFile(dir, historyFilePath);
+		
+		for(int i=0 ; i<Variable.tempHistoryList.size() ; i++) {
+			String file_content = Variable.tempHistoryList.get(i) + "\n";
+			FileHandler.writeFile(historyFile, file_content.getBytes());
+		}
+	}
+	
+	private void insertHistoryList() {
+		// String file_content = t.getDepDate() + " - " + t.getTrainType() + " - " + t.getTrainNumber() + " - " + 
+		// t.getDepCode() + " - " + t.getDepTime() + " - " + t.getArrCode() + " - " + t.getArrDate() + " - " + t.getArrTime() + "\n";
+		for(int i=0 ; i<Variable.tempHistoryList.size() ; i++)
+		{
+			StringTokenizer st = new StringTokenizer(Variable.tempHistoryList.get(i), " - ");
+	
+			String depDate = st.nextToken().trim();
+			String trainType = st.nextToken().trim();
+			String trainNumber = st.nextToken().trim();
+			String depCode = st.nextToken().trim();
+			String depTime = st.nextToken().trim();
+			String arrCode = st.nextToken().trim();
+			String arrDate = st.nextToken().trim();
+			String arrTime = st.nextToken().trim();
+			
+			Train t = new Train(trainType, trainNumber, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
+			Variable.historyList.add(t);
+		}
+	}
+	
+	private void getMoreTrainInformation() {
+		for(int i=0 ; i<Variable.historyList.size() ; i++) {
+			Train t = Variable.historyList.get(i);
+			new HistoryJsonParser(t.getDepDate(), t.getTrainNumber()).execute();
+		}
 	}
 
 	@Override
@@ -125,19 +191,16 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		
 	}
 	

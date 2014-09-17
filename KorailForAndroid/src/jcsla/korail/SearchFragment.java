@@ -1,29 +1,14 @@
 package jcsla.korail;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.StringTokenizer;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,7 +20,6 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.*;
 
@@ -66,8 +50,6 @@ public class SearchFragment extends Fragment
 	private TextView favoriteStationSearch;
 	
 	private Button searchButton;
-	
-	private ProgressDialog progressDialog;
 	
 	private AdView adView;
 	
@@ -432,7 +414,7 @@ public class SearchFragment extends Fragment
 
 	public void queryTrain()
 	{
-		TrainList.trainList.clear();
+		Variable.resultList.clear();
 
 		String sTrain = trainTypeEdit.getText().toString();
 		String sDate = depDateEdit.getText().toString();
@@ -446,7 +428,7 @@ public class SearchFragment extends Fragment
 		String departureStation = sDepartureStation;
 		String arrivalStation = sArrivalStation;
 
-		new JSONParser(train, date, time, departureStation, arrivalStation).execute();
+		new SearchJsonParser(this, train, date, time, departureStation, arrivalStation).execute();
 	}
 
 	public String getTrain(String train)
@@ -528,116 +510,6 @@ public class SearchFragment extends Fragment
 	public String getStation(String station)
 	{
 		return Stations.name_number_stations.get(station);
-	}
-
-	public class JSONParser extends AsyncTask<Void, Void, Void>
-	{
-		String url = null;
-		boolean isNull = false;
-
-		public JSONParser(String train, String date, String time, String dep, String arr)
-		{
-			String incodedDep = null;
-			String incodedArr = null;
-			
-			incodedDep = java.net.URLEncoder.encode(dep);
-			incodedArr = java.net.URLEncoder.encode(arr);
-			
-			url = "http://115.71.236.224:8082/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
-					+ incodedDep + "&arr=" + incodedArr;
-			progressDialog = ProgressDialog.show(getActivity(), "", "잠시 기다려주세요...", true);
-		}
-
-		@Override
-		protected Void doInBackground(Void... params)
-		{
-			JSONParserHelper jsonParserHelper = new JSONParserHelper();
-			JSONArray jsonArray = jsonParserHelper.getJSONFromURL(url);
-			if (jsonArray == null)
-			{
-				isNull = true;
-				return null;
-			}
-
-			try
-			{
-				for (int i = 0; i < jsonArray.length(); i++)
-				{
-					JSONObject jsonObject = jsonArray.getJSONObject(i);
-					String trainType = jsonObject.getString("train_type");
-					String trainNumber = jsonObject.getString("train_number");
-					String depCode = jsonObject.getString("dep_code");
-					String depDate = jsonObject.getString("dep_date");
-					String depTime = jsonObject.getString("dep_time");
-					String arrCode = jsonObject.getString("arr_code");
-					String arrDate = jsonObject.getString("arr_date");
-					String arrTime = jsonObject.getString("arr_time");
-					String trainStatus = jsonObject.getString("train_status");
-					String trainDelayStatus = jsonObject.getString("train_delay_status");
-					Train t = new Train(trainType, trainNumber, depCode, depDate, depTime, arrCode, arrDate, arrTime,
-							trainStatus, trainDelayStatus);
-					TrainList.trainList.add(t);
-				}
-			} catch (JSONException e)
-			{
-				e.printStackTrace();
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result)
-		{
-			super.onPostExecute(result);
-
-			progressDialog.dismiss();
-
-			if (isNull == true)
-			{
-				Toast.makeText(getActivity().getApplicationContext(), "조회 결과가 없습니다.", Toast.LENGTH_LONG).show();
-				return;
-			}
-
-			Intent i = new Intent(getActivity().getApplicationContext(), ResultActivity.class);
-			startActivity(i);
-		}
-	}
-
-	public class JSONParserHelper
-	{
-		JSONArray jsonArray = null;
-
-		public JSONArray getJSONFromURL(String url)
-		{
-			try
-			{
-				DefaultHttpClient httpClient = new DefaultHttpClient();
-				HttpGet httpGet = new HttpGet(url);
-				HttpResponse httpResponse;
-				httpResponse = httpClient.execute(httpGet);
-				HttpEntity httpEntity = httpResponse.getEntity();
-				InputStream inputStream = httpEntity.getContent();
-				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-				String line = null;
-				while ((line = bufferedReader.readLine()) != null)
-				{
-					jsonArray = new JSONArray(line);
-				}
-				inputStream.close();
-			} catch (ClientProtocolException e)
-			{
-				e.printStackTrace();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			} catch (JSONException e)
-			{
-				e.printStackTrace();
-			}
-
-			return jsonArray;
-		}
 	}
 
 	@Override

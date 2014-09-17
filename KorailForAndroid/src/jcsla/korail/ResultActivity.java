@@ -1,6 +1,9 @@
 package jcsla.korail;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -19,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ResultActivity extends Activity implements OnItemClickListener
 {
@@ -28,7 +32,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 	private AdView adView;
 	
 	File dir;
-	File file;
+	File historyFile;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -58,10 +62,14 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		titleStatus.setTypeface(Variable.typeface);
 		titleDelayInfo.setTypeface(Variable.typeface);
 
-		TrainAdapter trainAdapter = new TrainAdapter(this, R.layout.result_row, TrainList.trainList);
+		ResultAdapter trainAdapter = new ResultAdapter(this, R.layout.result_row, Variable.resultList);
 		trainListView = (ListView) findViewById(R.id.trainListView);
 		trainListView.setAdapter(trainAdapter);
 		trainListView.setOnItemClickListener(this);
+		
+		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
+		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
+		historyFile = FileHandler.makeFile(dir, historyFilePath);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.findViewById(R.id.result_adView);
@@ -114,18 +122,28 @@ public class ResultActivity extends Activity implements OnItemClickListener
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Train t = TrainList.trainList.get(position);
+		final Train t = Variable.resultList.get(position);
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(t.getTrainType() + " " + t.getTrainNumber() + "번 열차를 등록하시겠습니까?").setCancelable(false)
+		builder.setMessage(t.getTrainType() + " " + t.getTrainNumber() + " 열차를 등록하시겠습니까?").setCancelable(false)
 		.setPositiveButton("확인",
 				new DialogInterface.OnClickListener() {
 				    @Override
 				    public void onClick(DialogInterface dialog, int which) {
 						// 'YES'
-						// 파일에 저장
+						// 오늘 날짜만 파일에 저장, 아니면 다이얼로그
+				    	SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+				    	Date date = new Date();
+				    	String currentDate = SimpleDateFormat.format(date);
 				    	
-				    	// alert 띄워주기
+				    	if(t.getDepDate().compareTo(currentDate) == 0) {
+				    		saveHistoryFile(t);
+				    		Toast.makeText(getApplicationContext(), "HISTORY에 저장되었습니다.", Toast.LENGTH_LONG).show();
+				    	}
+				    	else
+				    		Toast.makeText(getApplicationContext(), "당일 기차만 저장할 수 있습니다.", Toast.LENGTH_LONG).show();
+				    	// 끝
+				    	finish();
 				    }
 				})
 		.setNegativeButton("취소",
@@ -138,5 +156,14 @@ public class ResultActivity extends Activity implements OnItemClickListener
 				});
 		AlertDialog alert = builder.create();
 		alert.show();
+	}
+	
+	public void saveHistoryFile(Train t)
+	{
+		String file_content = t.getDepDate() + " - " + t.getTrainType() + " - " + t.getTrainNumber() + " - " + 
+				t.getDepCode() + " - " + t.getDepTime() + " - " + t.getArrCode() + " - " + t.getArrDate() + " - " + t.getArrTime() + "\n";
+		FileHandler.writeFile(historyFile, file_content.getBytes());
+		
+		Variable.tempHistoryList.add(file_content.trim());
 	}
 }

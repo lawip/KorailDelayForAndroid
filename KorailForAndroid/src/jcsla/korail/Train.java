@@ -51,6 +51,9 @@ public class Train {
 		
 		return result.trim();
 	}
+	public String getTrainName() {
+		return trainType;
+	}
 	
 	public void setTrainNumber(String trainNumber) {
 		this.trainNumber = trainNumber;
@@ -68,6 +71,9 @@ public class Train {
 		result = Stations.number_name_stations.get(depCode);
 		
 		return result.trim();
+	}
+	public String getDepName() {
+		return depCode;
 	}
 	
 	public void setDepDate(String depDate) {
@@ -90,6 +96,9 @@ public class Train {
 		
 		return result.trim();
 	}
+	public String getProcessedDepTime() {
+		return depTime;
+	}
 	
 	public void setArrCode(String arrCode) {
 		this.arrCode = arrCode;
@@ -100,6 +109,9 @@ public class Train {
 		result = Stations.number_name_stations.get(arrCode);
 		
 		return result.trim();
+	}
+	public String getArrName() {
+		return arrCode;
 	}
 	
 	public void setArrDate(String arrDate) {
@@ -121,6 +133,9 @@ public class Train {
 		result = sb.toString();
 		
 		return result.trim();
+	}
+	public String getProcessedArrTime() {
+		return arrTime;
 	}
 	
 	public void setTrainStatus(String trainStatus) {
