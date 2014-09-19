@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.ActionBar;
@@ -19,7 +20,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -39,9 +39,9 @@ public class MainActivity extends ActionBarActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	
+
 	private TextView appTitle;
-	
+
 	File dir;
 	File favoriteStationsFile;
 	File historyFile;
@@ -49,21 +49,24 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		URQAController.InitializeAndStartSession(getApplicationContext(), "7ADED139");
-		
+
+		URQAController.InitializeAndStartSession(getApplicationContext(),
+				"7ADED139");
+
 		setContentView(R.layout.activity_main);
 		loadTypeface();
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color
+				.parseColor("#0493aa")));
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setCustomView(R.layout.actionbar_main);
 		getActionBar().setDisplayShowHomeEnabled(false);
-		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#31333c")));
-		
+		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color
+				.parseColor("#31333c")));
+
 		appTitle = (TextView) findViewById(R.id.trainSearchTitle);
 		appTitle.setTypeface(Variable.typeface);
 
@@ -97,70 +100,67 @@ public class MainActivity extends ActionBarActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-/*
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			TextView t = new TextView(this);
-			t.setText(mSectionsPagerAdapter.getPageTitle(i));
-			t.setTypeface(typeface);
-			
-			actionBar.addTab(actionBar.newTab()
-					.setCustomView(t)
-					.setTabListener(this));
-		}
-*/	
-		
+		/*
+		 * for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) { TextView
+		 * t = new TextView(this);
+		 * t.setText(mSectionsPagerAdapter.getPageTitle(i));
+		 * t.setTypeface(typeface);
+		 * 
+		 * actionBar.addTab(actionBar.newTab() .setCustomView(t)
+		 * .setTabListener(this)); }
+		 */
+
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
 		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;
 		favoriteStationsFile = FileHandler.makeFile(dir, favoriteStationsFilePath);
-		
+
 		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
 		historyFile = FileHandler.makeFile(dir, historyFilePath);
-		
-		Variable.favoriteStationsList = FileHandler.readFile(favoriteStationsFile);
+
+		Variable.favoriteStationsList = FileHandler .readFile(favoriteStationsFile);
 		Variable.tempHistoryList = FileHandler.readFile(historyFile);
 		deleteNotTodayHistory(); // 오늘 날짜 아니면 삭제
-		
+
 		insertHistoryList();
-		getMoreTrainInformation();
 	}
 
-	private void deleteNotTodayHistory()
-	{
-		SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
-    	Date date = new Date();
-    	String currentDate = SimpleDateFormat.format(date);
-    	
-    	for(int i=0 ; i<Variable.tempHistoryList.size() ; i++)
-    	{
-    		String line = Variable.tempHistoryList.get(i);
-    		StringTokenizer st = new StringTokenizer(line, "-");
+	private void deleteNotTodayHistory() {
+		SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyyMMdd",
+				Locale.KOREA);
+		Date date = new Date();
+		String currentDate = SimpleDateFormat.format(date);
+
+		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
+			String line = Variable.tempHistoryList.get(i);
+			StringTokenizer st = new StringTokenizer(line, "-");
 			String historyDate = st.nextToken().trim();
-			
-    		if(historyDate.compareTo(currentDate) != 0) {
-    			Variable.tempHistoryList.remove(i);
-    			remakeHistoryFile();
-    		}
-    	}
+
+			if (historyDate.compareTo(currentDate) != 0) {
+				Variable.tempHistoryList.remove(i);
+				remakeHistoryFile();
+			}
+		}
 	}
 
 	private void remakeHistoryFile() {
 		FileHandler.deleteFile(historyFile);
-		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
+		String historyFilePath = Variable.DIRECTORY_NAME
+				+ Variable.HISTORY_FILE;
 		historyFile = FileHandler.makeFile(dir, historyFilePath);
-		
-		for(int i=0 ; i<Variable.tempHistoryList.size() ; i++) {
+
+		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
 			String file_content = Variable.tempHistoryList.get(i) + "\n";
 			FileHandler.writeFile(historyFile, file_content.getBytes());
 		}
 	}
-	
+
 	private void insertHistoryList() {
-		// String file_content = t.getDepDate() + " - " + t.getTrainType() + " - " + t.getTrainNumber() + " - " + 
-		// t.getDepCode() + " - " + t.getDepTime() + " - " + t.getArrCode() + " - " + t.getArrDate() + " - " + t.getArrTime() + "\n";
-		for(int i=0 ; i<Variable.tempHistoryList.size() ; i++)
-		{
-			StringTokenizer st = new StringTokenizer(Variable.tempHistoryList.get(i), " - ");
-	
+		Variable.historyList.clear();
+
+		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
+			StringTokenizer st = new StringTokenizer(
+					Variable.tempHistoryList.get(i), " - ");
+
 			String depDate = st.nextToken().trim();
 			String trainType = st.nextToken().trim();
 			String trainNumber = st.nextToken().trim();
@@ -169,16 +169,18 @@ public class MainActivity extends ActionBarActivity implements
 			String arrCode = st.nextToken().trim();
 			String arrDate = st.nextToken().trim();
 			String arrTime = st.nextToken().trim();
-			
 			Train t = new Train(trainType, trainNumber, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
-			Variable.historyList.add(t);
-		}
-	}
-	
-	private void getMoreTrainInformation() {
-		for(int i=0 ; i<Variable.historyList.size() ; i++) {
-			Train t = Variable.historyList.get(i);
-			new HistoryJsonParser(t.getDepDate(), t.getTrainNumber()).execute();
+
+			try {
+				Train result = new HistoryJsonParser(depDate, trainNumber, t).execute().get();
+				Variable.historyList.add(result);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -196,18 +198,18 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		
+
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-		
+
 	}
-	
-	private void loadTypeface()
-	{
+
+	private void loadTypeface() {
 		if (Variable.typeface == null)
-			Variable.typeface = Typeface.createFromAsset(getAssets(), Variable.TYPEFACE_NAME);
+			Variable.typeface = Typeface.createFromAsset(getAssets(),
+					Variable.TYPEFACE_NAME);
 	}
 
 	/**
@@ -225,10 +227,9 @@ public class MainActivity extends ActionBarActivity implements
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class
 			// below).
-			//return PlaceholderFragment.newInstance(position + 1);
+			// return PlaceholderFragment.newInstance(position + 1);
 			Fragment fragment = null;
-			switch(position)
-			{
+			switch (position) {
 			case 0:
 				fragment = new SearchFragment();
 				break;
@@ -239,7 +240,7 @@ public class MainActivity extends ActionBarActivity implements
 				fragment = new SettingsFragment();
 				break;
 			}
-			
+
 			return fragment;
 		}
 

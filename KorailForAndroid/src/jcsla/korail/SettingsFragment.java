@@ -1,9 +1,13 @@
 package jcsla.korail;
 
+import java.util.concurrent.ExecutionException;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsFragment extends Fragment
 {
@@ -21,6 +26,7 @@ public class SettingsFragment extends Fragment
 	private LinearLayout enrollFavoriteStationContainer;
 	private LinearLayout sendEmailContainer;
 	private LinearLayout writeReviewContainer;
+	private LinearLayout appInformationContainer;
 	
 	private TextView enrollFavoriteStationTitle;
 	private TextView sendEmailTitle;
@@ -41,6 +47,7 @@ public class SettingsFragment extends Fragment
 		enrollFavoriteStationContainer = (LinearLayout) v.findViewById(R.id.enrollFavoriteStationContainer);
 		sendEmailContainer = (LinearLayout) v.findViewById(R.id.sendEmailContainer);
 		writeReviewContainer = (LinearLayout) v.findViewById(R.id.writeReviewContainer);
+		appInformationContainer = (LinearLayout) v.findViewById(R.id.appInformationContainer);
 		
 		enrollFavoriteStationTitle = (TextView) v.findViewById(R.id.enrollFavoriteStationTitle);
 		sendEmailTitle = (TextView) v.findViewById(R.id.sendEmailTitle);
@@ -60,6 +67,7 @@ public class SettingsFragment extends Fragment
 		enrollFavoriteStationContainer.setOnClickListener(layoutClickEye);
 		sendEmailContainer.setOnClickListener(layoutClickEye);
 		writeReviewContainer.setOnClickListener(layoutClickEye);
+		appInformationContainer.setOnClickListener(layoutClickEye);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.v.findViewById(R.id.settings_adView);
@@ -92,6 +100,10 @@ public class SettingsFragment extends Fragment
 			case R.id.writeReviewContainer:
 				showWriteReviewActivity();
 				break;
+				
+			case R.id.appInformationContainer:
+				compareVersionInformation();
+				break;
 			}
 		}
 	};
@@ -100,7 +112,7 @@ public class SettingsFragment extends Fragment
 		Intent i = new Intent(getActivity().getApplicationContext(), FavoriteStationActivity.class);
 		startActivity(i);
 	}
-	
+
 	protected void showSendEmailActivity() {
 		Uri uri = Uri.parse("mailto:jcsla@naver.com");
 		Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
@@ -108,8 +120,34 @@ public class SettingsFragment extends Fragment
 	}
 
 	protected void showWriteReviewActivity() {
-		Uri uri = Uri.parse("market://details?id=jcsla.korail");   
-		Intent intent = new Intent(Intent.ACTION_VIEW, uri);   
-		startActivity(intent); 
+		Uri uri = Uri.parse("market://details?id=jcsla.korail");
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		startActivity(intent);
+	}
+	
+	protected void compareVersionInformation() {
+		try {
+			PackageInfo i = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+			String appVersion = i.versionName; // 어플리케이션 버전
+			String webVersion = new VersionJsonParser().execute().get(); // 웹 페이지에서 뜨는 버전(최신버전)
+			
+			if(appVersion.compareTo(webVersion) == 0)
+				Toast.makeText(getActivity().getApplicationContext(), "최신 버전입니다.", Toast.LENGTH_LONG).show();
+			else {
+				Toast.makeText(getActivity().getApplicationContext(), "업데이트가 필요합니다.\n플레이스토어로 이동합니다.", Toast.LENGTH_LONG).show();
+				Uri uri = Uri.parse("market://details?id=jcsla.korail");
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
