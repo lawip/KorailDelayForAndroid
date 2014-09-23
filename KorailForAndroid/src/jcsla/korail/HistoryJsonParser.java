@@ -35,7 +35,7 @@ public class HistoryJsonParser extends AsyncTask<Void, Void, Train>
 		{
 			for (int i = 0; i < jsonArray.length(); )
 			{
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				JSONObject jsonObject = jsonArray.getJSONObject(0);
 				String trainLocation = jsonObject.getString("train_location");
 				String trainDelayTime = jsonObject.getString("train_delay_time");
 				

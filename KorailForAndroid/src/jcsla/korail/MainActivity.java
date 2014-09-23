@@ -175,10 +175,8 @@ public class MainActivity extends ActionBarActivity implements
 				Train result = new HistoryJsonParser(depDate, trainNumber, t).execute().get();
 				Variable.historyList.add(result);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
