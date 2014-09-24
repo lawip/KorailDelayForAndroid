@@ -15,7 +15,6 @@
     <string name="titleFavoriteStationSearch">즐겨찾는구간 검색</string>
     <string name="titleSearchButton">조회</string>
     
-    <string name="titleNowInfo">열차</string>
     <string name="titleStartInfo">출발</string>
     <string name="titleEndInfo">도착</string>
     <string name="titleStatus">열차위치</string>

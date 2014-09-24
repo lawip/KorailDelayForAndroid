@@ -1,6 +1,7 @@
 package jcsla.korail;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
 
@@ -23,13 +24,6 @@ public class HistoryFragment extends Fragment
 	
 	HistoryAdapter historyAdapter;
 	
-	private TextView trainTypeHistoryTitle;
-	private TextView depDateHistoryTitle;
-	private TextView depTimeHistoryTitle;
-	private TextView depInfoHistoryTitle;
-	private TextView arrInfoHistoryTitle;
-	private Button refreshButton;
-	
 	private AdView adView;
 	
 	File dir;
@@ -42,18 +36,18 @@ public class HistoryFragment extends Fragment
 		
 		v = inflater.inflate(R.layout.fragment_history, container, false);
 		
-		trainTypeHistoryTitle = (TextView) v.findViewById(R.id.titleHistoryTrainType);
-		depDateHistoryTitle = (TextView) v.findViewById(R.id.titleHistoryDepInfo);
-		depTimeHistoryTitle = (TextView) v.findViewById(R.id.titleHistoryArrInfo);
-		depInfoHistoryTitle = (TextView) v.findViewById(R.id.titleHistoryStatus);
-		arrInfoHistoryTitle = (TextView) v.findViewById(R.id.titleHistoryDelayInfo);
-		refreshButton = (Button) v.findViewById(R.id.refreshButton);
+		TextView historyTrainTypeTitle = (TextView) v.findViewById(R.id.historyTrainTypeTitle);
+		TextView historyDepTitle = (TextView) v.findViewById(R.id.historyDepTitle);
+		TextView historyArrTitle = (TextView) v.findViewById(R.id.historyArrTitle);
+		TextView historyLocationTitle = (TextView) v.findViewById(R.id.historyLocationTitle);
+		TextView historyDelayTimeTitle = (TextView) v.findViewById(R.id.historyDelayTimeTitle);
+		Button refreshButton = (Button) v.findViewById(R.id.refreshButton);
 		
-		trainTypeHistoryTitle.setTypeface(Variable.typeface);
-		depDateHistoryTitle.setTypeface(Variable.typeface);
-		depTimeHistoryTitle.setTypeface(Variable.typeface);
-		depInfoHistoryTitle.setTypeface(Variable.typeface);
-		arrInfoHistoryTitle.setTypeface(Variable.typeface);
+		historyTrainTypeTitle.setTypeface(Variable.typeface);
+		historyDepTitle.setTypeface(Variable.typeface);
+		historyArrTitle.setTypeface(Variable.typeface);
+		historyLocationTitle.setTypeface(Variable.typeface);
+		historyDelayTimeTitle.setTypeface(Variable.typeface);
 		refreshButton.setTypeface(Variable.typeface);
 		
 		refreshButton.setOnClickListener(onClickListener);
@@ -98,24 +92,30 @@ public class HistoryFragment extends Fragment
 	}
 	
 	private void insertHistoryList() {
+		ArrayList<Train> temp = new ArrayList<Train>();
+		
 		Variable.historyList.clear();
 
 		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
 			StringTokenizer st = new StringTokenizer(Variable.tempHistoryList.get(i), "/");
 
 			String depDate = st.nextToken().trim();
-			String trainType = st.nextToken().trim();
-			String trainNumber = st.nextToken().trim();
+			String type = st.nextToken().trim();
+			String number = st.nextToken().trim();
 			String depCode = st.nextToken().trim();
 			String depTime = st.nextToken().trim();
 			String arrCode = st.nextToken().trim();
 			String arrDate = st.nextToken().trim();
 			String arrTime = st.nextToken().trim();
-			Train t = new Train(trainType, trainNumber, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
-
+			
+			Train t = new Train(type, number, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
+			temp.add(t);
+		}
+		
+		if(temp.size() != 0) {
 			try {
-				Train result = new HistoryJsonParser(depDate, trainNumber, t).execute().get();
-				Variable.historyList.add(result);
+				ArrayList<Train> result = new HistoryJsonParser(temp).execute().get();
+				Variable.historyList.addAll(result);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {

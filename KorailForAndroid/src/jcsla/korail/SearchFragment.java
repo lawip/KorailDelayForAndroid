@@ -29,25 +29,12 @@ public class SearchFragment extends Fragment
 	private static final int ArrivalStationSearchActivity = 1;
 	
 	private View v;
-	
-	private LinearLayout trainTypeContainer;
-	private LinearLayout depDateContainer;
-	private LinearLayout depTimeContainer;
-	private LinearLayout depStationContainer;
-	private LinearLayout arrStationContainer;
-	private LinearLayout favoriteStationsContainer;
-	
-	private TextView trainTypeTitle;
-	private TextView depDateTitle;
-	private TextView depTimeTitle;
-	private TextView depInfoTitle;
-	private TextView arrInfoTitle;
+
 	private TextView trainTypeEdit;
 	private TextView depDateEdit;
 	private TextView depTimeEdit;
 	private TextView depStationEdit;
 	private TextView arrStationEdit;
-	private TextView favoriteStationSearch;
 	
 	private Button searchButton;
 	
@@ -66,20 +53,20 @@ public class SearchFragment extends Fragment
 		
 		v = inflater.inflate(R.layout.fragment_search, container, false);
 		
-		trainTypeContainer	 = (LinearLayout) v.findViewById(R.id.trainTypeContainer);
-		depDateContainer	 = (LinearLayout) v.findViewById(R.id.depDateContainer);
-		depTimeContainer	 = (LinearLayout) v.findViewById(R.id.depTimeContainer);
-		depStationContainer	 = (LinearLayout) v.findViewById(R.id.depStationContainer);
-		arrStationContainer	 = (LinearLayout) v.findViewById(R.id.arrStaionContainer);
-		favoriteStationsContainer	 = (LinearLayout) v.findViewById(R.id.favoriteStationsContainer);
-		searchButton		 = (Button)		  v.findViewById(R.id.searchButton);
+		LinearLayout trainTypeContainer = (LinearLayout) v.findViewById(R.id.trainTypeContainer);
+		LinearLayout depDateContainer = (LinearLayout) v.findViewById(R.id.depDateContainer);
+		LinearLayout depTimeContainer = (LinearLayout) v.findViewById(R.id.depTimeContainer);
+		LinearLayout depStationContainer = (LinearLayout) v.findViewById(R.id.depStationContainer);
+		LinearLayout arrStationContainer = (LinearLayout) v.findViewById(R.id.arrStaionContainer);
+		LinearLayout favoriteStationsContainer = (LinearLayout) v.findViewById(R.id.favoriteStationsContainer);
+		searchButton = (Button) v.findViewById(R.id.searchButton);
 		
-		trainTypeTitle = (TextView) v.findViewById(R.id.trainTypeTitle);
-		depDateTitle = (TextView) v.findViewById(R.id.depDateTitle);
-		depTimeTitle = (TextView) v.findViewById(R.id.depTimeTitle);
-		depInfoTitle = (TextView) v.findViewById(R.id.depInfoTitle);
-		arrInfoTitle = (TextView) v.findViewById(R.id.arrInfoTitle);
-		favoriteStationSearch = (TextView) v.findViewById(R.id.FavoriteStationSearchTitle);
+		TextView trainTypeTitle = (TextView) v.findViewById(R.id.trainTypeTitle);
+		TextView depDateTitle = (TextView) v.findViewById(R.id.depDateTitle);
+		TextView depTimeTitle = (TextView) v.findViewById(R.id.depTimeTitle);
+		TextView depInfoTitle = (TextView) v.findViewById(R.id.depInfoTitle);
+		TextView arrInfoTitle = (TextView) v.findViewById(R.id.arrInfoTitle);
+		TextView favoriteStationSearch = (TextView) v.findViewById(R.id.FavoriteStationSearchTitle);
 		
 		trainTypeEdit		 = (TextView) v.findViewById(R.id.editTrainType);
 		depDateEdit		 = (TextView) v.findViewById(R.id.editDepDate);
@@ -168,24 +155,6 @@ public class SearchFragment extends Fragment
 		}
 	};
 
-	/*
-	@Override
-	public void setContentView(int viewId)
-	{
-		View view = LayoutInflater.from(this).inflate(viewId, null);
-		ViewGroup group = (ViewGroup) view;
-		int childCnt = group.getChildCount();
-		for (int i = 0; i < childCnt; i++)
-		{
-			View v = group.getChildAt(i);
-			if (v instanceof TextView)
-			{
-				((TextView) v).setTypeface(typeface);
-			}
-		}
-		super.setContentView(view);
-	}
-*/
 	public String getDate()
 	{
 		Calendar c = Calendar.getInstance();

@@ -22,17 +22,6 @@ import android.widget.Toast;
 public class SettingsFragment extends Fragment
 {
 	private View v;
-	
-	private LinearLayout enrollFavoriteStationContainer;
-	private LinearLayout sendEmailContainer;
-	private LinearLayout writeReviewContainer;
-	private LinearLayout appInformationContainer;
-	
-	private TextView enrollFavoriteStationTitle;
-	private TextView sendEmailTitle;
-	private TextView writeReviewTitle;
-	private TextView appInformationTitle;
-	private TextView version;
 	private TextView description;
 	
 	private AdView adView;
@@ -44,16 +33,16 @@ public class SettingsFragment extends Fragment
 		
 		v = inflater.inflate(R.layout.fragment_settings, container, false);
 		
-		enrollFavoriteStationContainer = (LinearLayout) v.findViewById(R.id.enrollFavoriteStationContainer);
-		sendEmailContainer = (LinearLayout) v.findViewById(R.id.sendEmailContainer);
-		writeReviewContainer = (LinearLayout) v.findViewById(R.id.writeReviewContainer);
-		appInformationContainer = (LinearLayout) v.findViewById(R.id.appInformationContainer);
+		LinearLayout enrollFavoriteStationContainer = (LinearLayout) v.findViewById(R.id.enrollFavoriteStationContainer);
+		LinearLayout sendEmailContainer = (LinearLayout) v.findViewById(R.id.sendEmailContainer);
+		LinearLayout writeReviewContainer = (LinearLayout) v.findViewById(R.id.writeReviewContainer);
+		LinearLayout appInformationContainer = (LinearLayout) v.findViewById(R.id.appInformationContainer);
 		
-		enrollFavoriteStationTitle = (TextView) v.findViewById(R.id.enrollFavoriteStationTitle);
-		sendEmailTitle = (TextView) v.findViewById(R.id.sendEmailTitle);
-		writeReviewTitle = (TextView) v.findViewById(R.id.writeReviewTitle);
-		appInformationTitle = (TextView) v.findViewById(R.id.appInformationTitle);
-		version = (TextView) v.findViewById(R.id.version);
+		TextView enrollFavoriteStationTitle = (TextView) v.findViewById(R.id.enrollFavoriteStationTitle);
+		TextView sendEmailTitle = (TextView) v.findViewById(R.id.sendEmailTitle);
+		TextView writeReviewTitle = (TextView) v.findViewById(R.id.writeReviewTitle);
+		TextView appInformationTitle = (TextView) v.findViewById(R.id.appInformationTitle);
+		TextView version = (TextView) v.findViewById(R.id.version);
 		description = (TextView) v.findViewById(R.id.appDescription);
 		
 		enrollFavoriteStationTitle.setTypeface(Variable.typeface);

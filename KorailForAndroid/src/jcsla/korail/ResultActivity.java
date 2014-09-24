@@ -25,10 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ResultActivity extends Activity implements OnItemClickListener
-{
-	private TextView trainResultTitle;
-	private ListView trainListView;
-	
+{	
 	private AdView adView;
 	
 	File dir;
@@ -47,25 +44,25 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		actionBar.setCustomView(R.layout.actionbar_result);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
-		trainResultTitle = (TextView) findViewById(R.id.trainResultTitle);
+		TextView trainResultTitle = (TextView) findViewById(R.id.trainResultTitle);
 		trainResultTitle.setTypeface(Variable.typeface);
 		
-		TextView titleTrainType = (TextView) findViewById(R.id.titleTrainType);
-		TextView titleDepInfo = (TextView) findViewById(R.id.titleDepInfo);
-		TextView titleArrInfo = (TextView) findViewById(R.id.titleArrInfo);
-		TextView titleStatus = (TextView) findViewById(R.id.titleStatus);
-		TextView titleDelayInfo = (TextView) findViewById(R.id.titleDelayInfo);
+		TextView resultTrainTypeTitle = (TextView) findViewById(R.id.resultTrainTypeTitle);
+		TextView resultDepTitle = (TextView) findViewById(R.id.resultDepTitle);
+		TextView resultArrTitle = (TextView) findViewById(R.id.resultArrTitle);
+		TextView resultLocationTitle = (TextView) findViewById(R.id.resultLocationTitle);
+		TextView resultDelayTimeTitle = (TextView) findViewById(R.id.resultDelayTimeTitle);
 		
-		titleTrainType.setTypeface(Variable.typeface);
-		titleDepInfo.setTypeface(Variable.typeface);
-		titleArrInfo.setTypeface(Variable.typeface);
-		titleStatus.setTypeface(Variable.typeface);
-		titleDelayInfo.setTypeface(Variable.typeface);
+		resultTrainTypeTitle.setTypeface(Variable.typeface);
+		resultDepTitle.setTypeface(Variable.typeface);
+		resultArrTitle.setTypeface(Variable.typeface);
+		resultLocationTitle.setTypeface(Variable.typeface);
+		resultDelayTimeTitle.setTypeface(Variable.typeface);
 
 		ResultAdapter trainAdapter = new ResultAdapter(this, R.layout.result_row, Variable.resultList);
-		trainListView = (ListView) findViewById(R.id.trainListView);
-		trainListView.setAdapter(trainAdapter);
-		trainListView.setOnItemClickListener(this);
+		ListView resultListView = (ListView) findViewById(R.id.resultListView);
+		resultListView.setAdapter(trainAdapter);
+		resultListView.setOnItemClickListener(this);
 		
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
 		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;

@@ -4,6 +4,7 @@ import com.urqa.clientinterface.URQAController;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -40,8 +41,6 @@ public class MainActivity extends ActionBarActivity implements
 	 */
 	ViewPager mViewPager;
 
-	private TextView appTitle;
-
 	File dir;
 	File favoriteStationsFile;
 	File historyFile;
@@ -64,7 +63,7 @@ public class MainActivity extends ActionBarActivity implements
 		getActionBar().setDisplayShowHomeEnabled(false);
 		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#31333c")));
 
-		appTitle = (TextView) findViewById(R.id.appTitle);
+		TextView appTitle = (TextView) findViewById(R.id.appTitle);
 		appTitle.setTypeface(Variable.typeface);
 
 		// Create the adapter that will return a fragment for each of the three
@@ -143,11 +142,12 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void insertHistoryList() {
+		ArrayList<Train> temp = new ArrayList<Train>();
+		
 		Variable.historyList.clear();
 
 		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
-			StringTokenizer st = new StringTokenizer(
-					Variable.tempHistoryList.get(i), "/");
+			StringTokenizer st = new StringTokenizer(Variable.tempHistoryList.get(i), "/");
 
 			String depDate = st.nextToken().trim();
 			String type = st.nextToken().trim();
@@ -157,12 +157,16 @@ public class MainActivity extends ActionBarActivity implements
 			String arrCode = st.nextToken().trim();
 			String arrDate = st.nextToken().trim();
 			String arrTime = st.nextToken().trim();
-			Train t = new Train(type, number, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
 			
+			Train t = new Train(type, number, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
+			temp.add(t);
+		}
+		
+		if(temp.size() != 0) {
 			// 열차번호 모으다가 한번에 쿼리 날리기.
 			try {
-				Train result = new HistoryJsonParser(depDate, number, t).execute().get();
-				Variable.historyList.add(result);
+				ArrayList<Train> result = new HistoryJsonParser(temp).execute().get();
+				Variable.historyList.addAll(result);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {

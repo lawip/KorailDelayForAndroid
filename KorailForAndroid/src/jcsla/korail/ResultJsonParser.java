@@ -28,7 +28,7 @@ public class ResultJsonParser extends AsyncTask<Void, Void, Void>
 		incodedDep = java.net.URLEncoder.encode(dep);
 		incodedArr = java.net.URLEncoder.encode(arr);
 		
-		url = "http://192.168.25.3:8080/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep=" + incodedDep + "&arr=" + incodedArr;
+		url = "http://221.166.154.113:8080/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep=" + incodedDep + "&arr=" + incodedArr;
 		progressDialog = ProgressDialog.show(searchFragment.getActivity(), "", "잠시 기다려주세요...", true);
 	}
 
@@ -56,8 +56,8 @@ public class ResultJsonParser extends AsyncTask<Void, Void, Void>
 				String arrCode = jsonObject.getString("arr_code");
 				String arrDate = jsonObject.getString("arr_date");
 				String arrTime = jsonObject.getString("arr_time");
-				String location = jsonObject.getString("train_status");
-				String delayTime = jsonObject.getString("train_delay_status");
+				String location = jsonObject.getString("train_location");
+				String delayTime = jsonObject.getString("train_delay_time");
 				Train t = new Train(type, number, depCode, depDate, depTime, arrCode, arrDate, arrTime, location, delayTime);
 				Variable.resultList.add(t);
 			}
