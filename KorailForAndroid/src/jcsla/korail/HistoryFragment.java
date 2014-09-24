@@ -56,7 +56,7 @@ public class HistoryFragment extends Fragment
 		arrInfoHistoryTitle.setTypeface(Variable.typeface);
 		refreshButton.setTypeface(Variable.typeface);
 		
-		refreshButton.setOnClickListener(layoutClickEye);
+		refreshButton.setOnClickListener(onClickListener);
 		
 		// adpater
 		historyAdapter = new HistoryAdapter(this.getActivity(), R.layout.result_row, Variable.historyList);
@@ -72,7 +72,7 @@ public class HistoryFragment extends Fragment
 	}
 	
 	// 새로고침 버튼 클릭 이벤트
-	private OnClickListener layoutClickEye = new OnClickListener()
+	private OnClickListener onClickListener = new OnClickListener()
 	{
 		@Override
 		public void onClick(View v)
@@ -101,7 +101,7 @@ public class HistoryFragment extends Fragment
 		Variable.historyList.clear();
 
 		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
-			StringTokenizer st = new StringTokenizer(Variable.tempHistoryList.get(i), " - ");
+			StringTokenizer st = new StringTokenizer(Variable.tempHistoryList.get(i), "/");
 
 			String depDate = st.nextToken().trim();
 			String trainType = st.nextToken().trim();
@@ -117,10 +117,8 @@ public class HistoryFragment extends Fragment
 				Train result = new HistoryJsonParser(depDate, trainNumber, t).execute().get();
 				Variable.historyList.add(result);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

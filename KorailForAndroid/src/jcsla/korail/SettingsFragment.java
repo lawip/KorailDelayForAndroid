@@ -139,14 +139,14 @@ public class SettingsFragment extends Fragment
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (ExecutionException e) {
 			e.printStackTrace();
-		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
 	}

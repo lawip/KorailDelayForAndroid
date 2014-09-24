@@ -18,6 +18,7 @@ public class StationsAdapter extends ArrayAdapter<String>
 
 	public StationsAdapter(Context context, int resource, ArrayList<String> objects) {
 		super(context, resource, objects);
+		
 		this.context = context;
 		stationList = objects;
 		temp = new ArrayList<String>();

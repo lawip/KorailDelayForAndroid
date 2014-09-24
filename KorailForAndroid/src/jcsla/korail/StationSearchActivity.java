@@ -41,9 +41,6 @@ public class StationSearchActivity extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_station_search);
 		
-		// 타이틀 custom :
-		// http://stackoverflow.com/questions/8607707/how-to-set-a-custom-font-in-the-actionbar-title
-		
 		//인텐트에서 title이라는 이름으로 액션바 이름넘겨받음.
 		title = getIntent().getStringExtra("title");
 		
@@ -143,53 +140,7 @@ public class StationSearchActivity extends ActionBarActivity
 		}
 		super.onDestroy();
 	}
-	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_search, menu);
-
-		mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-		mSearchView.setBackgroundColor(Color.WHITE);
-		mSearchView.setQueryHint(title);
-		mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-		{
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0)
-			{
-				return false;
-			}
-			
-			// 자음 검색
-			@Override
-			public boolean onQueryTextChange(String arg0)
-			{
-				stationListAdapter.getFilter().filter(arg0);
-				return false;
-			}
-		});
-
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		
-		int id = item.getItemId();
-		if (id == R.id.action_search)
-		{
-			
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	*/
+	
 	private AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener()
 	{
 		@Override

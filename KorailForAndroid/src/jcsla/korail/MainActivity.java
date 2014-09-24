@@ -50,8 +50,7 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		URQAController.InitializeAndStartSession(getApplicationContext(),
-				"7ADED139");
+		URQAController.InitializeAndStartSession(getApplicationContext(), "7ADED139");
 
 		setContentView(R.layout.activity_main);
 		loadTypeface();
@@ -59,15 +58,13 @@ public class MainActivity extends ActionBarActivity implements
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color
-				.parseColor("#0493aa")));
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0493aa")));
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setCustomView(R.layout.actionbar_main);
 		getActionBar().setDisplayShowHomeEnabled(false);
-		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color
-				.parseColor("#31333c")));
+		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#31333c")));
 
-		appTitle = (TextView) findViewById(R.id.trainSearchTitle);
+		appTitle = (TextView) findViewById(R.id.appTitle);
 		appTitle.setTypeface(Variable.typeface);
 
 		// Create the adapter that will return a fragment for each of the three
@@ -100,15 +97,6 @@ public class MainActivity extends ActionBarActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		/*
-		 * for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) { TextView
-		 * t = new TextView(this);
-		 * t.setText(mSectionsPagerAdapter.getPageTitle(i));
-		 * t.setTypeface(typeface);
-		 * 
-		 * actionBar.addTab(actionBar.newTab() .setCustomView(t)
-		 * .setTabListener(this)); }
-		 */
 
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
 		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;
@@ -117,7 +105,7 @@ public class MainActivity extends ActionBarActivity implements
 		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
 		historyFile = FileHandler.makeFile(dir, historyFilePath);
 
-		Variable.favoriteStationsList = FileHandler .readFile(favoriteStationsFile);
+		Variable.favoriteStationsList = FileHandler.readFile(favoriteStationsFile);
 		Variable.tempHistoryList = FileHandler.readFile(historyFile);
 		deleteNotTodayHistory(); // 오늘 날짜 아니면 삭제
 
@@ -132,7 +120,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
 			String line = Variable.tempHistoryList.get(i);
-			StringTokenizer st = new StringTokenizer(line, "-");
+			StringTokenizer st = new StringTokenizer(line, "/");
 			String historyDate = st.nextToken().trim();
 
 			if (historyDate.compareTo(currentDate) != 0) {
@@ -159,20 +147,21 @@ public class MainActivity extends ActionBarActivity implements
 
 		for (int i = 0; i < Variable.tempHistoryList.size(); i++) {
 			StringTokenizer st = new StringTokenizer(
-					Variable.tempHistoryList.get(i), " - ");
+					Variable.tempHistoryList.get(i), "/");
 
 			String depDate = st.nextToken().trim();
-			String trainType = st.nextToken().trim();
-			String trainNumber = st.nextToken().trim();
+			String type = st.nextToken().trim();
+			String number = st.nextToken().trim();
 			String depCode = st.nextToken().trim();
 			String depTime = st.nextToken().trim();
 			String arrCode = st.nextToken().trim();
 			String arrDate = st.nextToken().trim();
 			String arrTime = st.nextToken().trim();
-			Train t = new Train(trainType, trainNumber, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
-
+			Train t = new Train(type, number, depCode, depDate, depTime, arrCode, arrDate, arrTime, "", "");
+			
+			// 열차번호 모으다가 한번에 쿼리 날리기.
 			try {
-				Train result = new HistoryJsonParser(depDate, trainNumber, t).execute().get();
+				Train result = new HistoryJsonParser(depDate, number, t).execute().get();
 				Variable.historyList.add(result);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -22,15 +22,14 @@ public class HistoryJsonParser extends AsyncTask<Void, Void, Train>
 		
 		this.t = t;
 		
-		url = "http://115.71.236.224:8082/searchDelay/?date=" + date + "&" + "train=" + train;
+		url = "http://192.168.25.3:8080/searchDelay/?date=" + date + "&" + "train=" + train;
 	}
 
 	@Override
 	protected Train doInBackground(Void... params) {
 		JsonParserHelper jsonParserHelper = new JsonParserHelper();
 		JSONArray jsonArray = jsonParserHelper.getJSONFromURL(url);
-			
-		// 새로고침이면 progressDialog 띄워주고 onPostExecute에서 갱신 최종시간 뿌려주기
+		
 		try
 		{
 			for (int i = 0; i < jsonArray.length(); )
@@ -39,8 +38,8 @@ public class HistoryJsonParser extends AsyncTask<Void, Void, Train>
 				String trainLocation = jsonObject.getString("train_location");
 				String trainDelayTime = jsonObject.getString("train_delay_time");
 				
-				t.setTrainStatus(trainLocation);
-				t.setTrainDelayStatus(trainDelayTime);
+				t.setLocation(trainLocation);
+				t.setDelayTime(trainDelayTime);
 				
 				return t;
 			}
@@ -50,12 +49,5 @@ public class HistoryJsonParser extends AsyncTask<Void, Void, Train>
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	@Override
-	protected void onPostExecute(Train result) {
-		
-		
-		super.onPostExecute(result);
 	}
 }

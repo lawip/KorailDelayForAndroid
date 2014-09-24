@@ -34,28 +34,28 @@ public class ResultAdapter extends ArrayAdapter<Train>
 		
 		if (t != null)
 		{
-			String delayString = t.getTrainDelayStatus();
-			
-			TextView trainType = (TextView) v.findViewById(R.id.itemTrainType);
-			TextView trainNumber = (TextView) v.findViewById(R.id.itemTrainNumber);
+			TextView trainType = (TextView) v.findViewById(R.id.itemType);
+			TextView trainNumber = (TextView) v.findViewById(R.id.itemNumber);
 			TextView departureStation = (TextView) v.findViewById(R.id.itemDepStation);
 			TextView departureTime = (TextView) v.findViewById(R.id.itemDepTime);
 			TextView arrivalStation = (TextView) v.findViewById(R.id.itemArrStation);
 			TextView arrivalTime = (TextView) v.findViewById(R.id.itemArrTime);
-			TextView location = (TextView) v.findViewById(R.id.itemStatus);
+			TextView location = (TextView) v.findViewById(R.id.itemLocation);
 			TextView delay = (TextView) v.findViewById(R.id.itemDelayTime);
 			
+			String delayString = t.getDelayTime();
 			if(delayString.compareTo("0 Ка") == 0)
-				 highlightView(delay, R.color.green);
-			else highlightView(delay, R.color.orange);
+				highlightView(delay, R.color.green);
+			else
+				highlightView(delay, R.color.orange);
 
-			trainType.setText(t.getTrainType());
-			trainNumber.setText(t.getTrainNumber());
-			departureStation.setText(t.getDepCode());
-			departureTime.setText(t.getDepTime());
-			arrivalStation.setText(t.getArrCode());
-			arrivalTime.setText(t.getArrTime());
-			location.setText(t.getTrainStatus());
+			trainType.setText(t.getName());
+			trainNumber.setText(t.getNumber());
+			departureStation.setText(t.getDepName());
+			departureTime.setText(t.getProcessedDepTime());
+			arrivalStation.setText(t.getArrName());
+			arrivalTime.setText(t.getProcessedArrTime());
+			location.setText(t.getLocation());
 			delay.setText(delayString);
 			
 			trainType.setTypeface(Variable.typeface);
@@ -67,6 +67,7 @@ public class ResultAdapter extends ArrayAdapter<Train>
 			location.setTypeface(Variable.typeface);
 			delay.setTypeface(Variable.typeface);
 		}
+		
 		return v;
 	}
 	

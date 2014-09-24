@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-public class SearchJsonParser extends AsyncTask<Void, Void, Void>
+public class ResultJsonParser extends AsyncTask<Void, Void, Void>
 {
 	Fragment searchFragment;
 	ProgressDialog progressDialog;
@@ -18,7 +18,7 @@ public class SearchJsonParser extends AsyncTask<Void, Void, Void>
 	String url = null;
 	boolean isNull = false;
 
-	public SearchJsonParser(Fragment searchFragment, String train, String date, String time, String dep, String arr)
+	public ResultJsonParser(Fragment searchFragment, String train, String date, String time, String dep, String arr)
 	{
 		this.searchFragment = searchFragment;
 		
@@ -28,8 +28,7 @@ public class SearchJsonParser extends AsyncTask<Void, Void, Void>
 		incodedDep = java.net.URLEncoder.encode(dep);
 		incodedArr = java.net.URLEncoder.encode(arr);
 		
-		url = "http://115.71.236.224:8082/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep="
-				+ incodedDep + "&arr=" + incodedArr;
+		url = "http://192.168.25.3:8080/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep=" + incodedDep + "&arr=" + incodedArr;
 		progressDialog = ProgressDialog.show(searchFragment.getActivity(), "", "잠시 기다려주세요...", true);
 	}
 
@@ -49,18 +48,17 @@ public class SearchJsonParser extends AsyncTask<Void, Void, Void>
 			for (int i = 0; i < jsonArray.length(); i++)
 			{
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				String trainType = jsonObject.getString("train_type");
-				String trainNumber = jsonObject.getString("train_number");
+				String type = jsonObject.getString("train_type");
+				String number = jsonObject.getString("train_number");
 				String depCode = jsonObject.getString("dep_code");
 				String depDate = jsonObject.getString("dep_date");
 				String depTime = jsonObject.getString("dep_time");
 				String arrCode = jsonObject.getString("arr_code");
 				String arrDate = jsonObject.getString("arr_date");
 				String arrTime = jsonObject.getString("arr_time");
-				String trainStatus = jsonObject.getString("train_status");
-				String trainDelayStatus = jsonObject.getString("train_delay_status");
-				Train t = new Train(trainType, trainNumber, depCode, depDate, depTime, arrCode, arrDate, arrTime,
-						trainStatus, trainDelayStatus);
+				String location = jsonObject.getString("train_status");
+				String delayTime = jsonObject.getString("train_delay_status");
+				Train t = new Train(type, number, depCode, depDate, depTime, arrCode, arrDate, arrTime, location, delayTime);
 				Variable.resultList.add(t);
 			}
 		}

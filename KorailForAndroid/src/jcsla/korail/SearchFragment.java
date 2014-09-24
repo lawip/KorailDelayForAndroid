@@ -110,13 +110,13 @@ public class SearchFragment extends Fragment
 		depStationEdit.setText("서울");
 		arrStationEdit.setText("부산");
 		
-		trainTypeContainer.setOnClickListener(layoutClickEye);
-		depDateContainer.setOnClickListener(layoutClickEye);
-		depTimeContainer.setOnClickListener(layoutClickEye);
-		depStationContainer.setOnClickListener(layoutClickEye);
-		arrStationContainer.setOnClickListener(layoutClickEye);
-		favoriteStationsContainer.setOnClickListener(layoutClickEye);
-		searchButton.setOnClickListener(layoutClickEye);
+		trainTypeContainer.setOnClickListener(onClickListener);
+		depDateContainer.setOnClickListener(onClickListener);
+		depTimeContainer.setOnClickListener(onClickListener);
+		depStationContainer.setOnClickListener(onClickListener);
+		arrStationContainer.setOnClickListener(onClickListener);
+		favoriteStationsContainer.setOnClickListener(onClickListener);
+		searchButton.setOnClickListener(onClickListener);
 		
 		// Look up the AdView as a resource and load a request.
 		adView = (AdView) this.v.findViewById(R.id.search_adView);
@@ -126,7 +126,7 @@ public class SearchFragment extends Fragment
 		return v;
 	}
 
-	private OnClickListener layoutClickEye = new OnClickListener()
+	private OnClickListener onClickListener = new OnClickListener()
 	{
 		@Override
 		public void onClick(View v)
@@ -428,7 +428,7 @@ public class SearchFragment extends Fragment
 		String departureStation = sDepartureStation;
 		String arrivalStation = sArrivalStation;
 
-		new SearchJsonParser(this, train, date, time, departureStation, arrivalStation).execute();
+		new ResultJsonParser(this, train, date, time, departureStation, arrivalStation).execute();
 	}
 
 	public String getTrain(String train)

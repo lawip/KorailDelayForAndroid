@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public interface Stations {
+public interface Stations
+{
 	Map<String, String> number_name_stations = new HashMap<String, String>() {{
 		put("0342", "가수원");
 		put("0476", "가야");

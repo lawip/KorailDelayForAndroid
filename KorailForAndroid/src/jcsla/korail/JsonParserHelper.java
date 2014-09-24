@@ -34,13 +34,16 @@ public class JsonParserHelper
 				jsonArray = new JSONArray(line);
 			}
 			inputStream.close();
-		} catch (ClientProtocolException e)
+		}
+		catch (ClientProtocolException e)
 		{
 			e.printStackTrace();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
-		} catch (JSONException e)
+		}
+		catch (JSONException e)
 		{
 			e.printStackTrace();
 		}

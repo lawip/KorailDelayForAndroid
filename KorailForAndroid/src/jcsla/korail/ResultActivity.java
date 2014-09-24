@@ -125,7 +125,7 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		final Train t = Variable.resultList.get(position);
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(t.getTrainType() + " " + t.getTrainNumber() + " 열차를 등록하시겠습니까?").setCancelable(false)
+		builder.setMessage(t.getName() + " " + t.getNumber() + " 열차를 등록하시겠습니까?").setCancelable(false)
 		.setPositiveButton("확인",
 				new DialogInterface.OnClickListener() {
 				    @Override
@@ -160,8 +160,8 @@ public class ResultActivity extends Activity implements OnItemClickListener
 	
 	public void saveHistoryFile(Train t)
 	{
-		String file_content = t.getDepDate() + " - " + t.getTrainType() + " - " + t.getTrainNumber() + " - " + 
-				t.getDepCode() + " - " + t.getDepTime() + " - " + t.getArrCode() + " - " + t.getArrDate() + " - " + t.getArrTime() + "\n";
+		String file_content = t.getDepDate() + "/" + t.getType() + "/" + t.getNumber() + "/" + 
+				t.getDepName() + "/" + t.getProcessedDepTime() + "/" + t.getArrName() + "/" + t.getArrDate() + "/" + t.getProcessedArrTime() + "\n";
 		FileHandler.writeFile(historyFile, file_content.getBytes());
 		
 		Variable.tempHistoryList.add(file_content.trim());

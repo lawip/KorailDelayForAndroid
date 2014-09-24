@@ -12,7 +12,6 @@ import android.widget.TextView;
 public class FavoriteStationsAdapter extends ArrayAdapter<String>
 {
 	Context context;
-	
 	ArrayList<String> favoriteStationList;
 
 	public FavoriteStationsAdapter(Context context, int resource, ArrayList<String> objects) {
@@ -35,9 +34,9 @@ public class FavoriteStationsAdapter extends ArrayAdapter<String>
 		String favoriteStation = favoriteStationList.get(position);
 		if(favoriteStation != null)
 		{
-			TextView stationTextView = (TextView) v.findViewById(R.id.stationItem);
-			stationTextView.setText(favoriteStation.toString());
-			stationTextView.setTypeface(Variable.typeface);
+			TextView favoriteStationTextView = (TextView) v.findViewById(R.id.stationItem);
+			favoriteStationTextView.setText(favoriteStation.toString());
+			favoriteStationTextView.setTypeface(Variable.typeface);
 		}
 		
 		return v;

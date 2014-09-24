@@ -18,7 +18,6 @@ public class Variable
 	public static ArrayList<Train> historyList = new ArrayList<Train>();
 	
 	public static ArrayList<String> favoriteStationsList;
-	public static ArrayList<String> tempHistoryList = new ArrayList<String>();
 	
-	public static String refreshHistoryTime = null;
+	public static ArrayList<String> tempHistoryList = new ArrayList<String>();
 }

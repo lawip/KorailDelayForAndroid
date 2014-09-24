@@ -1,6 +1,7 @@
 package jcsla.korail;
 
-public class SoundSearcher {
+public class SoundSearcher
+{
 	private static final char HANGUL_BEGIN_UNICODE = 44032; // 가
 	private static final char HANGUL_LAST_UNICODE = 55203; // 힣
 	private static final char HANGUL_BASE_UNIT = 588;// 각자음 마다 가지는 글자수
