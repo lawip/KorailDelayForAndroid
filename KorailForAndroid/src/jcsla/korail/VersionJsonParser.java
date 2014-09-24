@@ -12,7 +12,7 @@ public class VersionJsonParser extends AsyncTask<Void, Void, String>
 	
 	public VersionJsonParser()
 	{
-		url = "http://192.168.25.3:8080/version/";
+		url = "http://221.166.154.113:8080/version/";
 	}
 	
 	@Override
