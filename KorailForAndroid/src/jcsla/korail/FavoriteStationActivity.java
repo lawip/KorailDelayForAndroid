@@ -57,7 +57,7 @@ public class FavoriteStationActivity extends ActionBarActivity implements OnItem
 		
 		enrollButton.setOnClickListener(onClickListener);
 		
-		favoriteStationsAdapter = new FavoriteStationsAdapter(this, android.R.layout.simple_list_item_1, Variable.favoriteStationsList);
+		favoriteStationsAdapter = new FavoriteStationsAdapter(this, android.R.layout.simple_list_item_1, Variable.favoriteStationList);
 		ListView stationListView = (ListView) findViewById(R.id.favorite_station_list);
 		stationListView.setAdapter(favoriteStationsAdapter);
 		stationListView.setOnItemClickListener(this);
@@ -126,7 +126,7 @@ public class FavoriteStationActivity extends ActionBarActivity implements OnItem
 		FileHandler.writeFile(favoriteStationsFile, file_content.getBytes());
 		
 		// 리스트뷰 갱신.
-		Variable.favoriteStationsList.add(file_content.trim());
+		Variable.favoriteStationList.add(file_content.trim());
 		favoriteStationsAdapter.notifyDataSetChanged();
 	}
 
@@ -146,9 +146,9 @@ public class FavoriteStationActivity extends ActionBarActivity implements OnItem
 						// 삭제
 				    	// 리스트뷰 갱신
 				    	// alert 띄워주기
-				    	for(int i=0 ; i<Variable.favoriteStationsList.size() ; i++) {
-				    		if(clickedItem.compareTo(Variable.favoriteStationsList.get(i)) == 0) {
-				    			Variable.favoriteStationsList.remove(i);
+				    	for(int i=0 ; i<Variable.favoriteStationList.size() ; i++) {
+				    		if(clickedItem.compareTo(Variable.favoriteStationList.get(i)) == 0) {
+				    			Variable.favoriteStationList.remove(i);
 				    			remakeFavoriteStationsFile();
 				    			favoriteStationsAdapter.notifyDataSetChanged();
 				    		}
@@ -174,8 +174,8 @@ public class FavoriteStationActivity extends ActionBarActivity implements OnItem
 		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;
 		favoriteStationsFile = FileHandler.makeFile(dir, favoriteStationsFilePath);
 		
-		for(int i=0 ; i<Variable.favoriteStationsList.size() ; i++) {
-			String file_content = Variable.favoriteStationsList.get(i) + "\n";
+		for(int i=0 ; i<Variable.favoriteStationList.size() ; i++) {
+			String file_content = Variable.favoriteStationList.get(i) + "\n";
 			FileHandler.writeFile(favoriteStationsFile, file_content.getBytes());
 		}
 	}

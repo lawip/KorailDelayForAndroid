@@ -332,11 +332,11 @@ public class SearchFragment extends Fragment
 	
 	// 즐겨찾는구간 검색 다이얼로그 띄우기
 	protected void showFavoriteStationDialog() {
-		int length = Variable.favoriteStationsList.size();
+		int length = Variable.favoriteStationList.size();
 		CharSequence[] favoriteStations = new CharSequence[length];
 		
 		for(int i=0 ; i<length ; i++)
-			favoriteStations[i] = Variable.favoriteStationsList.get(i);
+			favoriteStations[i] = Variable.favoriteStationList.get(i);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle("즐겨찾는구간 선택");
@@ -345,7 +345,7 @@ public class SearchFragment extends Fragment
 			public void onClick(DialogInterface dialog, int item)
 			{
 				// 클릭 시 출발역 - 도착역 바꾸기
-				String selectedItem = Variable.favoriteStationsList.get(item);
+				String selectedItem = Variable.favoriteStationList.get(item);
 				
 				StringTokenizer st = new StringTokenizer(selectedItem, "-");
 
@@ -478,7 +478,8 @@ public class SearchFragment extends Fragment
 
 	public String getStation(String station)
 	{
-		return Stations.name_number_stations.get(station);
+		return null;
+		//return Station.name_number_stations.get(station);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -96,7 +97,9 @@ public class MainActivity extends ActionBarActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-
+		
+		new StationJsonParser().execute();
+		/*
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
 		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;
 		favoriteStationsFile = FileHandler.makeFile(dir, favoriteStationsFilePath);
@@ -104,11 +107,12 @@ public class MainActivity extends ActionBarActivity implements
 		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;
 		historyFile = FileHandler.makeFile(dir, historyFilePath);
 
-		Variable.favoriteStationsList = FileHandler.readFile(favoriteStationsFile);
+		Variable.favoriteStationList = FileHandler.readFile(favoriteStationsFile);
 		Variable.tempHistoryList = FileHandler.readFile(historyFile);
 		deleteNotTodayHistory(); // 오늘 날짜 아니면 삭제
 
 		insertHistoryList();
+		*/
 	}
 
 	private void deleteNotTodayHistory() {

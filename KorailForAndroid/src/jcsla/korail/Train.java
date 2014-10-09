@@ -80,7 +80,7 @@ public class Train
 	{
 		String result = null;
 		
-		result = Stations.number_name_stations.get(depCode);
+		//result = Station.number_name_stations.get(depCode);
 		
 		return result.trim();
 	}
@@ -128,7 +128,7 @@ public class Train
 	{
 		String result = null;
 		
-		result = Stations.number_name_stations.get(arrCode);
+		//result = Station.number_name_stations.get(arrCode);
 		
 		return result.trim();
 	}

@@ -78,12 +78,12 @@ public class StationSearchActivity extends ActionBarActivity
 		});
 
 		stationList = new ArrayList<String>();
-		Iterator<String> i = Stations.t_name_number_stations.keySet().iterator();
-		while (i.hasNext())
-		{
-			String key = (String) i.next();
-			stationList.add(key);
-		}
+//		Iterator<String> i = Station.t_name_number_stations.keySet().iterator();
+//		while (i.hasNext())
+//		{
+//			String key = (String) i.next();
+//			stationList.add(key);
+//		}
 		
 		stationListAdapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, stationList);
 		

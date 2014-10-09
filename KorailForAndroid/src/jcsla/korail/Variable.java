@@ -14,10 +14,12 @@ public class Variable
 	public static String FAVORITE_STATIONS_FILE = "favorite_stations.txt";
 	public static String HISTORY_FILE = "history.txt";
 	
+	public static ArrayList<Station> stationList = new ArrayList<Station>();
+	
 	public static ArrayList<Train> resultList = new ArrayList<Train>();
 	public static ArrayList<Train> historyList = new ArrayList<Train>();
 	
-	public static ArrayList<String> favoriteStationsList;
+	public static ArrayList<String> favoriteStationList;
 	
 	public static ArrayList<String> tempHistoryList = new ArrayList<String>();
 }
