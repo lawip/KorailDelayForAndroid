@@ -80,7 +80,12 @@ public class Train
 	{
 		String result = null;
 		
-		//result = Station.number_name_stations.get(depCode);
+		for(int i=0 ; i<Variable.stationList.size() ; i++)
+		{
+			String stationCode = Variable.stationList.get(i).getStnCd();
+			if(stationCode.compareTo(depCode) == 0)
+				result = Variable.stationList.get(i).getStnNm();
+		}
 		
 		return result.trim();
 	}
@@ -128,7 +133,12 @@ public class Train
 	{
 		String result = null;
 		
-		//result = Station.number_name_stations.get(arrCode);
+		for(int i=0 ; i<Variable.stationList.size() ; i++)
+		{
+			String stationCode = Variable.stationList.get(i).getStnCd();
+			if(stationCode.compareTo(arrCode) == 0)
+				result = Variable.stationList.get(i).getStnNm();
+		}
 		
 		return result.trim();
 	}

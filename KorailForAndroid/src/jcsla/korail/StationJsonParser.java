@@ -13,7 +13,7 @@ public class StationJsonParser extends AsyncTask<Void, Void, Void>
 	
 	public StationJsonParser()
 	{
-		url = "https://smart.letskorail.com/classes/com.korail.mobile.common.stationdata";
+		url = "http://221.166.154.113:8080/searchStations/";
 	}
 
 	@Override
@@ -50,9 +50,6 @@ public class StationJsonParser extends AsyncTask<Void, Void, Void>
 	@Override
 	protected void onPostExecute(Void result)
 	{
-		for(int i=0 ; i<Variable.stationList.size() ; i++)
-		{
-			Log.e("a", Variable.stationList.get(i).getStnNm());
-		}
+		// progress dialog?
 	}
 }

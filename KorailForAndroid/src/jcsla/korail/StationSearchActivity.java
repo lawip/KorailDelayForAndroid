@@ -78,6 +78,8 @@ public class StationSearchActivity extends ActionBarActivity
 		});
 
 		stationList = new ArrayList<String>();
+		for(int i=0 ; i<Variable.stationList.size() ; i++)
+			stationList.add(Variable.stationList.get(i).getStnNm());
 //		Iterator<String> i = Station.t_name_number_stations.keySet().iterator();
 //		while (i.hasNext())
 //		{

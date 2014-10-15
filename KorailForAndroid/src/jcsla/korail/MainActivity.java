@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements
 		}
 		
 		new StationJsonParser().execute();
-		/*
+		
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
 		String favoriteStationsFilePath = Variable.DIRECTORY_NAME + Variable.FAVORITE_STATIONS_FILE;
 		favoriteStationsFile = FileHandler.makeFile(dir, favoriteStationsFilePath);
@@ -112,7 +112,6 @@ public class MainActivity extends ActionBarActivity implements
 		deleteNotTodayHistory(); // 오늘 날짜 아니면 삭제
 
 		insertHistoryList();
-		*/
 	}
 
 	private void deleteNotTodayHistory() {

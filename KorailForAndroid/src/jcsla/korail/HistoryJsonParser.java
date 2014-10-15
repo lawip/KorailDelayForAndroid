@@ -6,27 +6,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 
 public class HistoryJsonParser extends AsyncTask<Void, Void, ArrayList<Train>>
 {
+//	Fragment historyFragment;
+//	ProgressDialog progressDialog;
+	
 	ArrayList<Train> historyList;
 	
 	String url = null;
 	
 	public HistoryJsonParser(ArrayList<Train> historyList)
 	{
-		this.historyList = historyList;
-		
-		String date = this.historyList.get(0).getDepDate();
-		url = "http://221.166.154.113:8080/searchDelay/?date=" + date;
-		
-		String temp = "";
-		for(int i=0 ; i<this.historyList.size() ; i++) {
-			temp = temp + "&" + "train_number=" + historyList.get(i).getNumber();
-		}
-		
-		url = url + temp;
+//		if(historyFragment instanceof Fragment)
+//		{
+//			this.historyFragment = (Fragment) historyFragment;
+			this.historyList = historyList;
+			
+			String date = this.historyList.get(0).getDepDate();
+			url = "http://221.166.154.113:8080/searchDelay/?date=" + date;
+			
+			String temp = "";
+			for(int i=0 ; i<this.historyList.size() ; i++) {
+				temp = temp + "&" + "train_number=" + historyList.get(i).getNumber();
+			}
+			
+			url = url + temp;
+//			progressDialog = ProgressDialog.show(((Fragment) historyFragment).getActivity(), "", "잠시 기다려주세요...", true);
+//		}
 	}
 
 	@Override
@@ -57,5 +67,11 @@ public class HistoryJsonParser extends AsyncTask<Void, Void, ArrayList<Train>>
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	protected void onPostExecute(ArrayList<Train> result) {
+//		progressDialog.dismiss();
+		super.onPostExecute(result);
 	}
 }
