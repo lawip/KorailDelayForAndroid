@@ -15,9 +15,12 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -30,6 +33,9 @@ public class ResultActivity extends Activity implements OnItemClickListener
 	
 	File dir;
 	File historyFile;
+	
+	ResultAdapter trainAdapter;
+	boolean lastItemVisibleFlag = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -59,10 +65,34 @@ public class ResultActivity extends Activity implements OnItemClickListener
 		resultLocationTitle.setTypeface(Variable.typeface);
 		resultDelayTimeTitle.setTypeface(Variable.typeface);
 
-		ResultAdapter trainAdapter = new ResultAdapter(this, R.layout.result_row, Variable.resultList);
+		trainAdapter = new ResultAdapter(this, R.layout.result_row, Variable.resultList);
 		ListView resultListView = (ListView) findViewById(R.id.resultListView);
 		resultListView.setAdapter(trainAdapter);
 		resultListView.setOnItemClickListener(this);
+		
+		
+		resultListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				// 현재 화면에 보이는 첫번째 리스트 아이템의 번호(firstVisibleItem) + 현재 화면에 보이는 리스트 아이템의 갯수(visibleItemCount)가 리스트 전체의 갯수(totalItemCount) -1 보다 크거나 같을때
+				lastItemVisibleFlag = (totalItemCount > 0)
+						&& (firstVisibleItem + visibleItemCount >= totalItemCount);
+			}
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// OnScrollListener.SCROLL_STATE_IDLE은 스크롤이 이동하다가 멈추었을때 발생되는 스크롤 상태입니다. 즉 스크롤이 바닦에 닿아 멈춘 상태에 처리를 하겠다는 뜻
+				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE&& lastItemVisibleFlag) {
+					// 출발 시간 바꾸기.
+					int time = Integer.parseInt(Variable.resultList.get(Variable.resultList.size()-1).getDepTime());
+					time = time + 1;
+					Variable.time = Integer.toString(time);
+					if(Variable.time.length() == 5)
+						Variable.time = "0" + Variable.time;
+					new ResultJsonParser(null, trainAdapter, Variable.train, Variable.date, Variable.time, Variable.departureStation, Variable.arrivalStation).execute();
+				}
+			}
+		});
+		
 		
 		dir = FileHandler.makeDirectory(Variable.DIRECTORY_NAME);
 		String historyFilePath = Variable.DIRECTORY_NAME + Variable.HISTORY_FILE;

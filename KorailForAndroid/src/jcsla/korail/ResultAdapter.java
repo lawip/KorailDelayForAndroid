@@ -76,4 +76,9 @@ public class ResultAdapter extends ArrayAdapter<Train>
 		int color = v.getResources().getColor(colorID);
 		v.setTextColor(color);
 	}
+	
+	public void notifyOnChange()
+	{
+		this.notifyDataSetChanged();
+	}
 }

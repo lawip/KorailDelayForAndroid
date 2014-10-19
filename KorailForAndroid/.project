@@ -30,4 +30,16 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Android-Rate</name>
+			<type>2</type>
+			<location>/Users/jcsla/Documents/workspace/KorailDelayForAndroid/Android-Rate</location>
+		</link>
+		<link>
+			<name>hotchemi</name>
+			<type>2</type>
+			<location>/Users/jcsla/Documents/workspace/KorailDelayForAndroid/Android-Rate/library/src/main/java/hotchemi</location>
+		</link>
+	</linkedResources>
 </projectDescription>

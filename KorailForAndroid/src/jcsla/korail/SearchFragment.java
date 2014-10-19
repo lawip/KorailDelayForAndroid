@@ -396,8 +396,20 @@ public class SearchFragment extends Fragment
 		String time = getTime(sTime);
 		String departureStation = sDepartureStation;
 		String arrivalStation = sArrivalStation;
+		
+		saveGlobalVariable(train, date, time, departureStation, arrivalStation);
 
-		new ResultJsonParser(this, train, date, time, departureStation, arrivalStation).execute();
+		//
+		new ResultJsonParser(this, null, train, date, time, departureStation, arrivalStation).execute();
+	}
+	
+	public void saveGlobalVariable(String train, String date, String time, String departureStation, String arrivalStation)
+	{
+		Variable.train = train;
+		Variable.date = date;
+		Variable.time = time;
+		Variable.departureStation = departureStation;
+		Variable.arrivalStation = arrivalStation;
 	}
 
 	public String getTrain(String train)
@@ -474,12 +486,6 @@ public class SearchFragment extends Fragment
 				hour = "12";
 		}
 		return hour + minute + "00";
-	}
-
-	public String getStation(String station)
-	{
-		return null;
-		//return Station.name_number_stations.get(station);
 	}
 
 	@Override

@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +57,27 @@ public class HistoryFragment extends Fragment
 		// adpater
 		historyAdapter = new HistoryAdapter(this.getActivity(), R.layout.result_row, Variable.historyList);
 		ListView historyListView = (ListView) v.findViewById(R.id.trainHistoryListView);
+		historyListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// 히스토리 삭제
+				
+			}
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1,
+//                    int position, long arg3) {
+//                // TODO Auto-generated method stub
+//
+//                        String category = categories[position];
+//                        Class activityClass = lookupActivityClass_byName(category);
+//                        //You could lookup by position, but "name" is more general
+//
+//                        Intent intent = new Intent(getActivity(), activityClass);
+//                        startActivity(intent);
+//
+//
+//            }
+        });
 		historyListView.setAdapter(historyAdapter);
 		
 		// Look up the AdView as a resource and load a request.

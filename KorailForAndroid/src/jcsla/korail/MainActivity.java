@@ -2,6 +2,9 @@ package jcsla.korail;
 
 import com.urqa.clientinterface.URQAController;
 
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,9 +52,24 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		URQAController.InitializeAndStartSession(getApplicationContext(), "7ADED139");
-
+		AppRate.with(this)
+	      .setInstallDays(0) // default 10, 0 means install day.
+	      .setLaunchTimes(3) // default 10
+	      .setRemindInterval(2) // default 1
+	      .setShowNeutralButton(true) // default true
+	      .setDebug(false) // default false
+	      .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
+	          @Override
+	          public void onClickButton(int which) {
+	              Log.e(MainActivity.class.getName(), Integer.toString(which));
+	          }
+	      })
+	      .monitor();
+		
+		AppRate.showRateDialogIfMeetsConditions(this);
+		
 		setContentView(R.layout.activity_main);
 		loadTypeface();
 

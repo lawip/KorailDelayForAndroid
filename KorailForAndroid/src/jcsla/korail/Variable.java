@@ -22,4 +22,10 @@ public class Variable
 	public static ArrayList<String> favoriteStationList;
 	
 	public static ArrayList<String> tempHistoryList = new ArrayList<String>();
+	
+	public static String train = "";
+	public static String date = "";
+	public static String time = "";
+	public static String departureStation = "";
+	public static String arrivalStation = "";
 }

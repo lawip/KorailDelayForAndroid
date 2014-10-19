@@ -8,19 +8,22 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class ResultJsonParser extends AsyncTask<Void, Void, Void>
 {
-	Fragment searchFragment;
+	Fragment fragment;			// 검색할 때 null이 아님
 	ProgressDialog progressDialog;
+	ResultAdapter trainAdapter;	// 재검색할 때 null이 아님
 	
 	String url = null;
 	boolean isNull = false;
 
-	public ResultJsonParser(Fragment searchFragment, String train, String date, String time, String dep, String arr)
+	public ResultJsonParser(Fragment fragment, ResultAdapter trainAdapter, String train, String date, String time, String dep, String arr)
 	{
-		this.searchFragment = searchFragment;
+		this.fragment = fragment;
+		this.trainAdapter = trainAdapter;
 		
 		String incodedDep = null;
 		String incodedArr = null;
@@ -29,7 +32,9 @@ public class ResultJsonParser extends AsyncTask<Void, Void, Void>
 		incodedArr = java.net.URLEncoder.encode(arr);
 		
 		url = "http://221.166.154.113:8080/searchTrain/?train=" + train + "&date=" + date + "&time=" + time + "&dep=" + incodedDep + "&arr=" + incodedArr;
-		progressDialog = ProgressDialog.show(searchFragment.getActivity(), "", "잠시 기다려주세요...", true);
+		
+		if(fragment != null)
+			progressDialog = ProgressDialog.show(fragment.getActivity(), "", "잠시 기다려주세요...", true);
 	}
 
 	@Override
@@ -75,15 +80,20 @@ public class ResultJsonParser extends AsyncTask<Void, Void, Void>
 	{
 		super.onPostExecute(result);
 
-		progressDialog.dismiss();
-
-		if (isNull == true)
+		if(fragment != null)
 		{
-			Toast.makeText(searchFragment.getActivity().getApplicationContext(), "조회 결과가 없습니다.", Toast.LENGTH_LONG).show();
-			return;
+			progressDialog.dismiss();
+	
+			if (isNull == true)
+			{
+				Toast.makeText(fragment.getActivity().getApplicationContext(), "조회 결과가 없습니다.", Toast.LENGTH_LONG).show();
+				return;
+			}
+	
+			Intent i = new Intent(fragment.getActivity().getApplicationContext(), ResultActivity.class);
+			fragment.startActivity(i);
 		}
-
-		Intent i = new Intent(searchFragment.getActivity().getApplicationContext(), ResultActivity.class);
-		searchFragment.startActivity(i);
+		if(trainAdapter != null)
+			trainAdapter.notifyDataSetChanged();
 	}
 }
